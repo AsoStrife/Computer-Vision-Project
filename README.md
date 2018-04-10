@@ -1,4 +1,4 @@
-#ELBP-Computer-Vision
+# ELBP-Computer-Vision
 
 The goal of this project was develop an ELBP implementation in order to perform a Face Recognition.  
 
@@ -39,7 +39,7 @@ In the `model` folder, the script store the training data values, in order to pe
 
 In the `utils` folder there are some helper function.
 
-#Execute 
+# Execute 
 
 First of all you have to unzip the YaleFaces.zip in the same folder. 
 
