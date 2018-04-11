@@ -43,7 +43,7 @@ def main():
 
 	datasetFolder = datasetMainFolder + arguments.dataset + "/"
 
-	classes, xFilepath, yFile = getDataset(arguments.dataset)
+	classes, filename, xFilepath, yFile = getDataset(arguments.dataset)
 	x = []
 	y = []
 

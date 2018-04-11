@@ -7,10 +7,18 @@
 
 import os
 
+'''
+ Starting by a dataset name, this function return 
+ classes => an array with all classes (subfolders inside dataset folder)
+ filename => an array with all images filenames
+ xFilepath => an array with all images name with path /dataset/classes_folder/filename.pgm
+ y => an array with the relative label of filename||xFilepath
+'''
 def getDataset(dataset):
 	directory = os.getcwd() + "/datasets/" + dataset +"/"
 
 	classes = []
+	filename = []
 	xFilepath = []
 	y = []
 
@@ -22,6 +30,6 @@ def getDataset(dataset):
 		for file in os.listdir(directory + imgClass):
 			y.append(imgClass)
 			xFilepath.append(imgClass + "/" + file)
+			filename.append(file)
 
-
-	return classes, xFilepath, y
+	return classes, filename, xFilepath, y

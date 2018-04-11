@@ -6,6 +6,7 @@
 '''
 
 from PIL import Image
+import numpy
 
 class LBP:
 	def __init__(self, img):

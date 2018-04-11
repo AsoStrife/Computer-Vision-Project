@@ -8,6 +8,7 @@
 import os.path
 import numpy
 import dlib
+import cv2
 from PIL import Image
 
 # Other method to read an image starting by filepath
@@ -24,6 +25,7 @@ def imgRead(filepath):
 def getImgSize(imgObj):
 	return imgObj.size
 
+# Passing an Image Object return the equivalent numpy array values
 def getImgArray(imgObj):
 	return numpy.array(imgObj) 
 
@@ -52,10 +54,16 @@ def imgShow(imgArray):
 	win.set_image(imgArray)
 	raw_input("Hit enter to continue")
 
-
+# Convert an img array into Image object
 def getImgObjFromArray(imgArray):
 	return Image.fromarray(imgArray.astype('uint8'), 'L')
 
-def saveImgFromArray(imgArray):
+# Passing an image, a dataset name and file name, store the image in png format
+def saveImgFromArray(imgArray, dataset, filename):
 	img = getImgObjFromArray(imgArray)
-	save("output/prova.png")
+	save("datasets/" + dataset + "/LBP/" + filename +".png")
+
+# Equalize the img histogram passed as a parameter
+def histogramEqualization(imgArray):
+	eqImg = cv2.equalizeHist(imgArray)
+	return eqImg	
