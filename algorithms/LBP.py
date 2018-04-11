@@ -53,5 +53,6 @@ class LBP:
 		result_image.putdata(self.patterns)
 		return result_image
 
+	# Return the LBP patters as array
 	def getImageArray(self): 
 		return self.patterns

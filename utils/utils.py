@@ -10,6 +10,7 @@ import numpy
 import dlib
 import cv2
 from PIL import Image
+import shutil #remove folder with all files
 
 # Other method to read an image starting by filepath
 #img = cv2.imread(filepath)
@@ -52,16 +53,25 @@ def faceDetect(imgArray):
 def imgShow(imgArray):
 	win = dlib.image_window()
 	win.set_image(imgArray)
-	raw_input("Hit enter to continue")
+	raw_input("Hit enter to continue...")
 
 # Convert an img array into Image object
 def getImgObjFromArray(imgArray):
 	return Image.fromarray(imgArray.astype('uint8'), 'L')
 
+# Create the folder LBP inside the dataset folder, in order to save the LBP image
+def createFolder(dataset, algorithm):
+	path = "datasets/" + algorithm + "/" + dataset +"/"
+	if not os.path.exists(path):
+		os.makedirs(path)
+	else:
+		shutil.rmtree(path, ignore_errors=True)
+		os.makedirs(path)
+
 # Passing an image, a dataset name and file name, store the image in png format
-def saveImgFromArray(imgArray, dataset, filename):
-	img = getImgObjFromArray(imgArray)
-	save("datasets/" + dataset + "/LBP/" + filename +".png")
+def saveImgFromArray(img, dataset, filename, algorithm):
+	path = "datasets/" + algorithm + "/" + dataset +"/"
+	img.save(path + filename +".png")
 
 # Equalize the img histogram passed as a parameter
 def histogramEqualization(imgObj):

@@ -27,6 +27,7 @@ def main():
 	parser.add_argument('--algorithm', dest='algorithm', type=str, default='lbp', help='Algorithm to use: "lbp" or "elbp"')
 	parser.add_argument('--training', dest='training', action='store_true', default=False, help='whether or not an output image should be produced')
 	parser.add_argument('--histEq', dest='histEq', action='store_true', default=False, help='if you want to equialize the histogram before calculating LBP or ELBP')
+	parser.add_argument('--output', dest='output', action='store_true', default=False, help='if you want to save the png of LBP image')
 
 	arguments = parser.parse_args()
 	datasetMainFolder = os.getcwd() + "/datasets/"
@@ -41,36 +42,55 @@ def main():
 		print('The Dataset "' + arguments.dataset + '" doesn\'t exist')
 		return
 
+	# Helpful instad of write datasetMainFolder + arguments.dataset + "/"
 	datasetFolder = datasetMainFolder + arguments.dataset + "/"
 
-	classes, filename, xFilepath, y = getDataset(arguments.dataset)
+	# Get Dataset information
+	classes, filenames, xFilepaths, y = getDataset(arguments.dataset)
 	x = []
 
 	print("Launching " + arguments.algorithm.upper() + " algorithm on the " + arguments.dataset + " dataset...")
 	startTime = time.time()
 
-	for xfp in xFilepath:
+	# This counter is used to store the png 
+	counter = 0
+
+	# if --output is passed as parameter
+	if arguments.output == True:
+		createFolder(arguments.dataset, arguments.algorithm.upper() )
+
+
+	for xfp in xFilepaths:
 		img = imgRead(datasetFolder + xfp)
-		# Check if img exist
+		# Check if img exist (security check)
 		if img:
 			# if --histEq is passed as parameter, perform an histogram equalization
 			if(arguments.histEq == True):
 				img =  histogramEqualization(img) 
 
-			lbpObject = LBP( img )
+			# Calculate the LBP and store inside feature vector x
+			lbpObject = LBP(img)
 			lbpObject.execute()
-			
 			x.append(lbpObject.getImageArray())
+
+			# if --output is passed as parameter
+			if arguments.output == True:
+				saveImgFromArray(lbpObject.getImage(), arguments.dataset, filenames[counter], arguments.algorithm.upper() )
+		# If the image doens't exist
 		else:
 			print("The image: " + datasetFolder + xfp + " doesn't exist")	
-	
+		
+		counter = counter + 1
+
 	print("--- " + arguments.algorithm.upper() + " done in %s seconds ---" % (time.time() - startTime))
 
 	print("Split dataset into training and test set [0.77] [0.33]")
-	xTrain, xTest, yTrain, yTest = train_test_split(x, y, test_size=0.33)
 
+	# Split dataset x (feature vector) and y (label) into training and test set
+	xTrain, xTest, yTrain, yTest = train_test_split(x, y, test_size=0.33)
 	
 	print("Launching SVM...")
+
 	startTime = time.time()
 
 	# if --training is passet as parameter, perform the training of model
@@ -82,7 +102,7 @@ def main():
 		joblib.dump(clf, 'model/svm.pkl') 
 		print("--- Training done in %s seconds ---" % (time.time() - trainingTime))
 
-	# test the model
+	# Test the model
 	clf = joblib.load('model/svm.pkl') 
 	print("Start testing...")
 	predicted = clf.predict(xTest)
