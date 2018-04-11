@@ -53,13 +53,13 @@ def main():
 		img = imgRead(datasetFolder + xfp)
 		# Check if img exist
 		if img:
-			
-			eq =  histogramEqualization( getImgArray(img))
+			# if --histEq is passed as parameter, perform an histogram equalization
+			if(arguments.histEq == True):
+				img =  histogramEqualization(img) 
 
 			lbpObject = LBP( img )
 			lbpObject.execute()
-			imm = lbpObject.getImageArray()
-
+			
 			x.append(lbpObject.getImageArray())
 		else:
 			print("The image: " + datasetFolder + xfp + " doesn't exist")	
@@ -67,27 +67,29 @@ def main():
 	print("--- " + arguments.algorithm.upper() + " done in %s seconds ---" % (time.time() - startTime))
 
 	print("Split dataset into training and test set [0.77] [0.33]")
-	x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.33)
+	xTrain, xTest, yTrain, yTest = train_test_split(x, y, test_size=0.33)
 
 	
 	print("Launching SVM...")
 	startTime = time.time()
 
+	# if --training is passet as parameter, perform the training of model
 	if arguments.training == True:
 		trainingTime = time.time()
 		clf = svm.LinearSVC()
 		print("Start training...")
-		clf.fit(x_train, y_train)
+		clf.fit(xTrain, yTrain)
 		joblib.dump(clf, 'model/svm.pkl') 
 		print("--- Training done in %s seconds ---" % (time.time() - trainingTime))
 
+	# test the model
 	clf = joblib.load('model/svm.pkl') 
 	print("Start testing...")
-	predicted = clf.predict(x_test)
+	predicted = clf.predict(xTest)
 
 	print("--- SVM done in %s seconds ---" % (time.time() - startTime))
 
-	print("Accuracy: " + str(accuracy_score(y_test, predicted)))
+	print("Accuracy: " + str(accuracy_score(yTest, predicted)))
 	
 if __name__ == "__main__":
 	main()

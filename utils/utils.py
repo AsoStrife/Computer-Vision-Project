@@ -64,6 +64,7 @@ def saveImgFromArray(imgArray, dataset, filename):
 	save("datasets/" + dataset + "/LBP/" + filename +".png")
 
 # Equalize the img histogram passed as a parameter
-def histogramEqualization(imgArray):
+def histogramEqualization(imgObj):
+	imgArray = getImgArray(imgObj)
 	eqImg = cv2.equalizeHist(imgArray)
-	return eqImg	
+	return getImgObjFromArray(eqImg)
