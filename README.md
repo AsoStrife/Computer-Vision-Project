@@ -23,6 +23,7 @@ ELBP-Computer-Vision
 |
 └─── _datasets
 │   	YaleFaces.zip
+|		YaleFaces_small.zip
 |
 └─── model
 |
@@ -46,18 +47,41 @@ First of all you have to unzip the YaleFaces.zip in the same folder.
 You can launch the `python main.py` with the following parameters: 
 
 ```shell
-python main.py --dataset datasetName
-python main.py --algorithm LBP or ELBP
-python main.py --training
+--dataset datasetName
+--algorithm LBP or ELBP
+--training
+--histEq
+--output
+
 ```
 
 By default launching only `python main.py` the script use LBP algorithm with YaleFaces dataset without training (loading from model folder). If there are not model in your model folder you must user `--training`. 
+`--histEq` is helpful because perform an histogram equalization before calculating the LBP.
+If `--output` is setted the script will produce inside `./datasets/your_chosen_algorithm_/your_chosen_dataset/` the PNG of the LBP calculated for each image.
 
 #### Example
 
 `python main.py --dataset YaleFaces --algorithm LBP`
 
 `python main.py --algorithm ELBP --training`
+
+# Benchmark and classification
+
+Below you will find the results I obtained using my PC (Dell XPS 15 9550, with Intel i7 6700HQ Skylake @ 2.60GHz)
+
+For the classification task I've used `LinearSVM`
+
+| Dataset         | LBP time     | Training time | Testing time | Average Accuracy |
+| --------------- | ------------ | ------------- | ------------ | ---------------- |
+| YaleFaces       | ≈ 31 seconds | ≈ 33.1        | ≈ 37         | ≈ 0.98           |
+| YaleFaces_small | ≈ 4 seconds  | ≈ 4 seconds   | ≈ 4 seconds  | ≈ 0.99           |
+
+| Dataset         | ELBP time | Training time | Testing time | Average Accuracy |
+| --------------- | --------- | ------------- | ------------ | ---------------- |
+| YaleFaces       |           |               |              |                  |
+| YaleFaces_small |           |               |              |                  |
+
+
 
 # Dependencies
 
