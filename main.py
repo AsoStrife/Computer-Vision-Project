@@ -71,7 +71,7 @@ def main():
 			# Calculate the LBP and store inside feature vector x
 			lbpObject = LBP(img)
 			lbpObject.execute()
-			x.append(lbpObject.getImageArray())
+			x.append(lbpObject.getHistogram())
 
 			# if --output is passed as parameter
 			if arguments.output == True:

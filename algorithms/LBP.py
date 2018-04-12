@@ -56,3 +56,8 @@ class LBP:
 	# Return the LBP patters as array
 	def getImageArray(self): 
 		return self.patterns
+
+	# Return the histogram of the image
+	def getHistogram(self):
+		hist, bin_edges = numpy.histogram(self.patterns)
+		return hist
