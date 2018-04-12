@@ -81,7 +81,7 @@ For the classification task I've used `LinearSVM`
 | YaleFaces       |           |               |              |                  |
 | YaleFaces_small |           |               |              |                  |
 
-
+![](http://i67.tinypic.com/msykqq.png)
 
 # Dependencies
 
