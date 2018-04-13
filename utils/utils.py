@@ -117,5 +117,5 @@ def rotateImg(imgArray, angle):
 	return dst
 
 def getHistogram(imgArray):
-	hist, bin_edges = numpy.histogram(imgArray, density=True)
+	hist, bin_edges = numpy.histogram(imgArray)
 	return hist

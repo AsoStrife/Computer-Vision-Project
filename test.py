@@ -74,10 +74,6 @@ def main():
 				img =  histogramEqualization(img) 
 
 			lbp_value = local_binary_pattern(img, 8, 1, method='uniform')
-			
-
-			#img = getImgObjFromArray(lbp_value)
-			#img.save("prova/file.png")
 
 			# Split img into 12*12 blocks
 			shaped = blockshaped(lbp_value, 16, 14)

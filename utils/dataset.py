@@ -33,3 +33,15 @@ def getDataset(dataset):
 			filename.append(file)
 
 	return classes, filename, xFilepath, y
+
+
+def getPersonalDataset():
+	directory = os.getcwd() + "/datasets/personal/"
+
+	x = []
+
+	for root, dirs, files in os.walk(directory):
+		for file in files:
+			x.append("datasets/personal/" + file)
+
+	return x
