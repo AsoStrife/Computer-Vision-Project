@@ -78,7 +78,7 @@ def createFolder(dataset):
 		os.makedirs(path)
 
 # Passing an image, a dataset name and file name, store the image in png format
-def saveImgLBPFromArray(img, dataset, filename, algorithm):
+def saveImgLBP(img, dataset, filename, algorithm):
 	path = "datasets/" + algorithm + "/" + dataset +"/"
 	img.save(path + filename)
 
@@ -116,6 +116,7 @@ def rotateImg(imgArray, angle):
 	dst = cv2.warpAffine(imgArray,M,(cols,rows))
 	return dst
 
+# https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.histogram.html
 def getHistogram(imgArray):
-	hist, bin_edges = numpy.histogram(imgArray)
+	hist, bin_edges = numpy.histogram(imgArray, density=True)
 	return hist

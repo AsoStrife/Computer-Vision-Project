@@ -19,6 +19,8 @@ from utils.dataset import *
 from sklearn.metrics import accuracy_score #c alculate accuracy
 from sklearn.externals import joblib # save and load model
 from sklearn.model_selection import train_test_split # in order to split training and test
+import numpy
+from skimage.feature import local_binary_pattern
 
 def main():
 
@@ -49,7 +51,6 @@ def main():
 	classes, filenames, xFilepaths, y = getDataset(arguments.dataset)
 	x = []
 
-
 	print("Launching " + arguments.algorithm.upper() + " algorithm on the " + arguments.dataset + " dataset...")
 	startTime = time.time()
 
@@ -60,35 +61,47 @@ def main():
 	if arguments.output == True:
 		createFolderLBP(arguments.dataset, arguments.algorithm.upper() )
 
+
 	for xfp in xFilepaths:
 		img = imgRead(datasetFolder + xfp)
+
+		#imgShow(numpy.matrix(img))
+
 		# Check if img exist (security check)
 		if img:
 			# if --histEq is passed as parameter, perform an histogram equalization
 			if(arguments.histEq == True):
 				img =  histogramEqualization(img) 
 
-			# Calculate the LBP and store inside feature vector x
-			lbpObject = LBP(img)
-			lbpObject.execute()
-			x.append(lbpObject.getHistogram())
-			#x.append(lbpObject.getImageArray())
+			lbp_value = local_binary_pattern(img, 8, 1)
+
+			# Split img into 12*12 blocks
+			shaped = blockshaped(lbp_value, 16, 14)
+
+			# Calculate the histogram for each block
+			xBlocks = []
+			for s in shaped:
+				xBlocks.append(getHistogram(s))
+			# Concatenate the various histogram, the resulting histogram is append into feature vector
+			x.append(numpy.concatenate(xBlocks))
 
 			# if --output is passed as parameter
 			if arguments.output == True:
-				saveImgLBPFromArray(lbpObject.getImage(), arguments.dataset, filenames[counter], arguments.algorithm.upper() )
+				saveImgLBP(getImgObjFromArray(lbp_value), arguments.dataset, filenames[counter], arguments.algorithm.upper() )
+
 		# If the image doens't exist
 		else:
 			print("The image: " + datasetFolder + xfp + " doesn't exist")	
-		
+		# Add counter for new image
 		counter = counter + 1
+
 
 	print("--- " + arguments.algorithm.upper() + " done in %s seconds ---" % (time.time() - startTime))
 
-	print("Split dataset into training and test set [0.80] [0.20]")
+	print("Split dataset into training and test set [0.77] [0.33]")
 
 	# Split dataset x (feature vector) and y (label) into training and test set
-	xTrain, xTest, yTrain, yTest = train_test_split(x, y, test_size=0.20)
+	xTrain, xTest, yTrain, yTest = train_test_split(x, y, test_size=0.33)
 	
 	print("Launching SVM...")
 
@@ -100,11 +113,11 @@ def main():
 		clf = svm.LinearSVC()
 		print("Start training...")
 		clf.fit(xTrain, yTrain)
-		joblib.dump(clf, 'model/svm.pkl') 
+		joblib.dump(clf, 'model/svm_block.pkl') 
 		print("--- Training done in %s seconds ---" % (time.time() - trainingTime))
 
 	# Test the model
-	clf = joblib.load('model/svm.pkl') 
+	clf = joblib.load('model/svm_block.pkl') 
 	print("Start testing...")
 	predicted = clf.predict(xTest)
 
