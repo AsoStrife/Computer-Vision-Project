@@ -59,5 +59,5 @@ class LBP:
 
 	# Return the histogram of the image
 	def getHistogram(self):
-		hist, bin_edges = numpy.histogram(self.patterns)
+		hist, bin_edges = numpy.histogram(self.patterns, density=True)
 		return hist

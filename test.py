@@ -19,7 +19,8 @@ from utils.dataset import *
 from sklearn.metrics import accuracy_score #c alculate accuracy
 from sklearn.externals import joblib # save and load model
 from sklearn.model_selection import train_test_split # in order to split training and test
-import numpy as np
+import numpy
+from skimage.feature import local_binary_pattern
 
 def main():
 
@@ -27,6 +28,8 @@ def main():
 	parser.add_argument('--dataset', dest='dataset', type=str, default='YaleFaces', help='Main folder of the dataset')
 	parser.add_argument('--algorithm', dest='algorithm', type=str, default='lbp', help='Algorithm to use: "lbp" or "elbp"')
 	parser.add_argument('--training', dest='training', action='store_true', default=False, help='whether or not an output image should be produced')
+	parser.add_argument('--histEq', dest='histEq', action='store_true', default=False, help='if you want to equialize the histogram before calculating LBP or ELBP')
+	parser.add_argument('--output', dest='output', action='store_true', default=False, help='if you want to save the png of LBP image')
 
 	arguments = parser.parse_args()
 	datasetMainFolder = os.getcwd() + "/datasets/"
@@ -41,68 +44,92 @@ def main():
 		print('The Dataset "' + arguments.dataset + '" doesn\'t exist')
 		return
 
+	# Helpful instad of write datasetMainFolder + arguments.dataset + "/"
 	datasetFolder = datasetMainFolder + arguments.dataset + "/"
 
-	classes, filename, xFilepath, yFile = getDataset(arguments.dataset)
+	# Get Dataset information
+	classes, filename, xFilepaths, y = getDataset(arguments.dataset)
 	x = []
-	y = []
 
 	print("Launching " + arguments.algorithm.upper() + " algorithm on the " + arguments.dataset + " dataset...")
 	startTime = time.time()
 
-	counter = 0;
+	# This counter is used to store the png 
+	counter = 0
 
-	for xfp in xFilepath:
+	# if --output is passed as parameter
+	if arguments.output == True:
+		createFolder(arguments.dataset, arguments.algorithm.upper() )
+
+
+	for xfp in xFilepaths:
 		img = imgRead(datasetFolder + xfp)
-		# Check if img exist
+
+		#imgShow(numpy.matrix(img))
+
+		# Check if img exist (security check)
 		if img:
-			imgArray = getImgArray(img)
-			shaped = imgArray.reshape(16, 16, -1)
+			# if --histEq is passed as parameter, perform an histogram equalization
+			if(arguments.histEq == True):
+				img =  histogramEqualization(img) 
 
-			xBlock = []
+			lbp_value = local_binary_pattern(img, 8, 1, method='uniform')
+			
+
+			#img = getImgObjFromArray(lbp_value)
+			#img.save("prova/file.png")
+
+			# Split img into 12*12 blocks
+			shaped = blockshaped(lbp_value, 16, 14)
+
+			xBlocks = []
 			for s in shaped:
-				# Check if the img contain a valid face and execute the LBP class
-				lbpObject = LBP( getImgObjFromArray(s) )
-				lbpObject.execute()
-				#xBlock.append(lbpObject.getImageArray())
+				xBlocks.append(getHistogram(s))
 
-				#test = numpy.concatenate(xBlock, axis=0 )
+			x.append(numpy.concatenate(xBlocks))
 
-				x.append(lbpObject.getImageArray())
-				y.append(yFile[counter])
-			counter = counter+1;
+			# if --output is passed as parameter
+			if arguments.output == True:
+				saveImgFromArray(lbpObject.getImage(), arguments.dataset, filenames[counter], arguments.algorithm.upper() )
+
+		# If the image doens't exist
 		else:
 			print("The image: " + datasetFolder + xfp + " doesn't exist")	
-	
-	print("--- " + arguments.algorithm.upper() + " done in %s seconds ---" % (time.time() - startTime))
-	
-	print("Split dataset into training and test set [0.80] [0.20]")
-	x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+		# Add counter for new image
+		counter = counter + 1
 
+
+	print("--- " + arguments.algorithm.upper() + " done in %s seconds ---" % (time.time() - startTime))
+
+	print("Split dataset into training and test set [0.77] [0.33]")
+
+	# Split dataset x (feature vector) and y (label) into training and test set
+	xTrain, xTest, yTrain, yTest = train_test_split(x, y, test_size=0.33)
 	
 	print("Launching SVM...")
+
 	startTime = time.time()
 
+	# if --training is passet as parameter, perform the training of model
 	if arguments.training == True:
 		trainingTime = time.time()
-		clf = svm.SVC()
+		clf = svm.LinearSVC()
 		print("Start training...")
-		clf.fit(x_train, y_train)
-		joblib.dump(clf, 'model/svm.pkl') 
+		clf.fit(xTrain, yTrain)
+		joblib.dump(clf, 'model/svm_block.pkl') 
 		print("--- Training done in %s seconds ---" % (time.time() - trainingTime))
 
-	clf = joblib.load('model/svm.pkl') 
+	# Test the model
+	clf = joblib.load('model/svm_block.pkl') 
 	print("Start testing...")
-	predicted = clf.predict(x_test)
+	predicted = clf.predict(xTest)
 
 	print("--- SVM done in %s seconds ---" % (time.time() - startTime))
 
-	print("Accuracy: " + str(accuracy_score(y_test, predicted)))
+	print("Accuracy: " + str(accuracy_score(yTest, predicted)))
 	
 if __name__ == "__main__":
 	main()
-
-
 
 
 

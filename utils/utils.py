@@ -28,7 +28,7 @@ def getImgSize(imgObj):
 
 # Passing an Image Object return the equivalent numpy array values
 def getImgArray(imgObj):
-	return numpy.array(imgObj) 
+	return numpy.matrix(imgObj) 
 
 # Check if an Image contain one or more valid faces. 
 def faceDetect(imgArray):
@@ -60,7 +60,7 @@ def getImgObjFromArray(imgArray):
 	return Image.fromarray(imgArray.astype('uint8'), 'L')
 
 # Create the folder LBP inside the dataset folder, in order to save the LBP image
-def createFolder(dataset, algorithm):
+def createFolderLBP(dataset, algorithm):
 	path = "datasets/" + algorithm + "/" + dataset +"/"
 	if not os.path.exists(path):
 		os.makedirs(path)
@@ -68,13 +68,54 @@ def createFolder(dataset, algorithm):
 		shutil.rmtree(path, ignore_errors=True)
 		os.makedirs(path)
 
+# Create the folder LBP inside the dataset folder, in order to save the LBP image
+def createFolder(dataset):
+	path = "datasets/" + dataset +"/"
+	if not os.path.exists(path):
+		os.makedirs(path)
+	else:
+		shutil.rmtree(path, ignore_errors=True)
+		os.makedirs(path)
+
 # Passing an image, a dataset name and file name, store the image in png format
-def saveImgFromArray(img, dataset, filename, algorithm):
+def saveImgLBPFromArray(img, dataset, filename, algorithm):
 	path = "datasets/" + algorithm + "/" + dataset +"/"
-	img.save(path + filename +".png")
+	img.save(path + filename)
+
+# Passing an image, a dataset name and file name, store the image in png format
+def saveImgFromArray(img, dataset, filename):
+	path = "datasets/" + "/" + dataset +"/"
+	img.save(path + filename)
+
 
 # Equalize the img histogram passed as a parameter
 def histogramEqualization(imgObj):
 	imgArray = getImgArray(imgObj)
 	eqImg = cv2.equalizeHist(imgArray)
 	return getImgObjFromArray(eqImg)
+
+
+"""
+Return an array of shape (n, nrows, ncols) where
+n * nrows * ncols = arr.size
+
+If arr is a 2D array, the returned array should look like n subblocks with
+each subblock preserving the "physical" layout of arr.
+"""
+def blockshaped(arr, nrows, ncols):
+
+	h, w = arr.shape
+	return (arr.reshape(h//nrows, nrows, -1, ncols)
+			.swapaxes(1,2)
+			.reshape(-1, nrows, ncols))
+
+# Rotate an img
+def rotateImg(imgArray, angle):	
+	rows,cols = imgArray.shape
+	M = cv2.getRotationMatrix2D((cols/2,rows/2), angle, 1)
+	dst = cv2.warpAffine(imgArray,M,(cols,rows))
+	return dst
+
+def getHistogram(imgArray):
+	hist, bin_edges = numpy.histogram(imgArray, density=True)
+	return hist
