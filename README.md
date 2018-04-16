@@ -88,10 +88,16 @@ For the classification task I've used `LinearSVM`
 In order tu run, test and modify the source code you must install the following package.
 
 ```shell
+#CV2
+sudo apt-get install python-opencv
+
+#PIP
 sudo apt-get install python-pip
 pip install Pillow
 
 # SKLEARN
+pip install -U scikit-learn
+
 sudo apt-get install build-essential python3-dev python3-setuptools 
 sudo apt-get install python3-numpy python3-scipy
 sudo apt-get install libopenblas-dev
@@ -100,8 +106,8 @@ sudo apt-get install libopenblas-dev
 sudo apt-get install build-essential cmake
 sudo apt-get install libgtk-3-dev
 sudo apt-get install libboost-all-dev
-wget https://bootstrap.pypa.io/get-pip.py
-sudo python get-pip.py
+
+
 sudo pip install scikit-image
 sudo pip install dlib
 ```
