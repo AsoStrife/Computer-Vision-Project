@@ -1,6 +1,6 @@
-# ELBP-Computer-Vision
+# Computer-Vision-Project
 
-The goal of this project was develop an ELBP implementation in order to perform a Face Recognition.  
+The goal of this project was develop an LBP implementation in order to perform a Face Recognition.  
 
 This project was developed for [Computer Vision](http://people.unica.it/giovannipuglisi/didattica/insegnamenti/?mu=Guide/PaginaADErogata.do;jsessionid=CBB39621933B1A5C549359BBEFDCA119.jvm1?ad_er_id=2017*N0*N0*S2*26520*20168&ANNO_ACCADEMICO=2017&mostra_percorsi=S&step=1&jsid=CBB39621933B1A5C549359BBEFDCA119.jvm1&nsc=ffffffff0909189545525d5f4f58455e445a4a42378b) course at [University of Cagliari](http://corsi.unica.it/informatica), supervised by prof. [Giovanni Puglisi](http://people.unica.it/giovannipuglisi/).
 
@@ -13,12 +13,11 @@ For more information about ELBP read the original paper at this link: [Extended 
 This project has the following structure
 
 ```
-ELBP-Computer-Vision
+Computer-Vision-Project
 │   README.md
 │   main.py    
 │
 └─── algorithms
-│    	ELBP.py
 │    	LBP.py
 |
 └─── _datasets
@@ -48,7 +47,7 @@ You can launch the `python main.py` with the following parameters:
 
 ```shell
 --dataset datasetName
---algorithm LBP or ELBP
+--algorithm LBP
 --training
 --histEq
 --output
