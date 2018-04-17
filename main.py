@@ -8,7 +8,6 @@ import time
 import argparse
 import cv2
 from PIL import Image
-from sklearn import svm
 
 # Import my alghorithms
 from algorithms.LBP import LBP
@@ -22,21 +21,26 @@ from sklearn.model_selection import train_test_split # in order to split trainin
 import numpy
 from skimage.feature import local_binary_pattern
 
+# Classifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn import svm
+
 def main():
 
-	parser = argparse.ArgumentParser(description='Run the local binary patterns algorithm using either a single process or multiple processes.')
+	parser = argparse.ArgumentParser(description='')
 	parser.add_argument('--dataset', dest='dataset', type=str, default='YaleFaces', help='Main folder of the dataset')
-	parser.add_argument('--algorithm', dest='algorithm', type=str, default='lbp', help='Algorithm to use: "lbp" or "elbp"')
+	parser.add_argument('--classifier', dest='classifier', type=str, default='svm', help='Classifier to use: "svm" or "naivebayes" or "knn"')
 	parser.add_argument('--training', dest='training', action='store_true', default=False, help='whether or not an output image should be produced')
-	parser.add_argument('--histEq', dest='histEq', action='store_true', default=False, help='if you want to equialize the histogram before calculating LBP or ELBP')
+	parser.add_argument('--histEq', dest='histEq', action='store_true', default=False, help='if you want to equialize the histogram before calculating LBP')
 	parser.add_argument('--output', dest='output', action='store_true', default=False, help='if you want to save the png of LBP image')
 
 	arguments = parser.parse_args()
 	datasetMainFolder = os.getcwd() + "/datasets/"
 
-	# Security check about the algorithm
-	if(arguments.algorithm != "lbp" and arguments.algorithm != "elbp"):
-		print("Algorithm not valid. Choose between LBP or ELBP")
+	# Security check about the classifier
+	if(arguments.classifier != "svm" and arguments.classifier != "naivebayes" and arguments.classifier != "knn"):
+		print("Classifier not valid. Choose between svm, naivebayes or knn")
 		return
 
 	# Security check about the dataset
@@ -51,7 +55,7 @@ def main():
 	classes, filenames, xFilepaths, y = getDataset(arguments.dataset)
 	x = []
 
-	print("Launching " + arguments.algorithm.upper() + " algorithm on the " + arguments.dataset + " dataset...")
+	print("Launching LBP on the " + arguments.dataset + " dataset...")
 	startTime = time.time()
 
 	# This counter is used to store the png 
@@ -59,7 +63,7 @@ def main():
 
 	# if --output is passed as parameter
 	if arguments.output == True:
-		createFolderLBP(arguments.dataset, arguments.algorithm.upper() )
+		createFolderLBP(arguments.dataset, "LBP" )
 
 
 	for xfp in xFilepaths:
@@ -87,7 +91,7 @@ def main():
 
 			# if --output is passed as parameter
 			if arguments.output == True:
-				saveImgLBP(getImgObjFromArray(lbp_value), arguments.dataset, filenames[counter], arguments.algorithm.upper() )
+				saveImgLBP(getImgObjFromArray(lbp_value), arguments.dataset, filenames[counter], "LBP" )
 
 		# If the image doens't exist
 		else:
@@ -96,32 +100,40 @@ def main():
 		counter = counter + 1
 
 
-	print("--- " + arguments.algorithm.upper() + " done in %s seconds ---" % (time.time() - startTime))
+	print("--- LBP done in %s seconds ---" % (time.time() - startTime))
 
 	print("Split dataset into training and test set [0.77] [0.33]")
 
 	# Split dataset x (feature vector) and y (label) into training and test set
 	xTrain, xTest, yTrain, yTest = train_test_split(x, y, test_size=0.33)
 	
-	print("Launching SVM...")
+	print("Launching " + arguments.classifier.upper() + "...")
 
 	startTime = time.time()
 
 	# if --training is passet as parameter, perform the training of model
 	if arguments.training == True:
 		trainingTime = time.time()
-		clf = svm.LinearSVC()
+		filename = arguments.classifier + ".pkl"
+
+		if arguments.classifier == "svm": 
+			clf = svm.LinearSVC()
+		if arguments.classifier == "naivebayes": 
+			clf = GaussianNB()
+		if arguments.classifier == "knn": 
+			clf = KNeighborsClassifier(n_neighbors=3)
+
 		print("Start training...")
 		clf.fit(xTrain, yTrain)
-		joblib.dump(clf, 'model/svm_block.pkl') 
+		joblib.dump(clf, 'model/' + filename) 
 		print("--- Training done in %s seconds ---" % (time.time() - trainingTime))
 
 	# Test the model
-	clf = joblib.load('model/svm_block.pkl') 
+	clf = joblib.load('model/' + filename) 
 	print("Start testing...")
 	predicted = clf.predict(xTest)
 
-	print("--- SVM done in %s seconds ---" % (time.time() - startTime))
+	print("--- " + arguments.classifier.upper() + " done in %s seconds ---" % (time.time() - startTime))
 
 	print("Accuracy: " + str(accuracy_score(yTest, predicted)))
 	
