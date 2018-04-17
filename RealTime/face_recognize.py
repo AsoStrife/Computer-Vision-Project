@@ -1,21 +1,8 @@
 # facerec.py
 import cv2, sys, numpy, os, argparse
-from skimage.feature import local_binary_pattern
 from utils.utils import *
 from sklearn import svm
 
-def LBP(img): 
-	lbp_value = local_binary_pattern(img, 8, 1)
-
-	# Split img into 10*10 blocks
-	shaped = blockshaped(lbp_value, 10, 13)
-
-	# Calculate the histogram for each block
-	xBlocks = []
-	for s in shaped:
-		xBlocks.append(getHistogram(s))
-
-	return numpy.concatenate(xBlocks)
 
 def main():
 
@@ -33,41 +20,31 @@ def main():
 	haar_file = 'haarcascade_frontalface_default.xml'
 	datasets = 'datasets'
 	# Part 1: Create fisherRecognizer
-	print('Training...')
+
 	# Create a list of images and a list of corresponding names
-	(images, lables, names, id) = ([], [], {}, 0)
-	for (subdirs, dirs, files) in os.walk(datasets):
-		for subdir in dirs:
-			names[id] = subdir
-			subjectpath = os.path.join(datasets, subdir)
-			for filename in os.listdir(subjectpath):
-				path = subjectpath + '/' + filename
-				lable = id
-				images.append(cv2.imread(path, 0))
-				lables.append(int(lable))
-			id += 1
+	(images, lables, names, id) = getDatasets(datasets)
+	# Size of images
 	(width, height) = (130, 100)
 
 	# Create a Numpy array from the two lists above
 	(images, lables) = [numpy.array(lis) for lis in [images, lables]]
 
-	# OpenCV trains a model from the images
-	# NOTE FOR OpenCV2: remove '.face'
-	model = cv2.face.createFisherFaceRecognizer()
-	model.train(images, lables)
+	print('Training dataset using ' + arguments.algorithm)
+	if arguments.algorithm == "fisherface":
+		# OpenCV trains a model from the images
+		model = cv2.face.createFisherFaceRecognizer()
+		model.train(images, lables)
+	if arguments.algorithm == "lbp":
+		x = [];
+		
+		for img in images: 
+			lbp = LBP(img)
+			# Concatenate the various histogram, the resulting histogram is append into feature vector
+			x.append(lbp)
 
-	x = [];
-
-	############ training with svm ################
-	for img in images: 
-		lbp = LBP(img)
-		# Concatenate the various histogram, the resulting histogram is append into feature vector
-		x.append(lbp)
-
-	clf = svm.LinearSVC()
-	print("Start training...")
-	clf.fit(x, lables)
-	############ training with svm ################
+		model = svm.LinearSVC()
+		model.fit(x, lables)
+	print('Training dataset using ' + arguments.algorithm + ' done')
 
 
 	# Part 2: Use fisherRecognizer on camera stream
@@ -82,14 +59,19 @@ def main():
 			cv2.rectangle(im,(x,y),(x+w,y+h),(255,0,0),2)
 			face = gray[y:y + h, x:x + w]
 			face_resize = cv2.resize(face, (width, height))
-			# Try to recognize the face
-			prediction = model.predict(face_resize)
-			cv2.rectangle(im, (x, y), (x + w, y + h), (0, 255, 0), 3)
 
-			lbp = [];
-			lbp.append(LBP(face_resize))
-			predict = clf.predict(lbp)
-			print(prediction)
+			if arguments.algorithm == "fisherface":
+				# Try to recognize the face using fisherface
+				prediction = model.predict(face_resize) #fisherface get the label as 0
+				#print("[Debug]: " + names[prediction] + "'s face found")
+			if arguments.algorithm == "lbp":
+				lbp = [];
+				lbp.append(LBP(face_resize))
+				prediction = model.predict(lbp)
+				prediction = prediction[0] # SVM get and array with the class [0]
+				#print("[Debug]: " + names[prediction] + "'s face found")
+
+			cv2.rectangle(im, (x, y), (x + w, y + h), (0, 255, 0), 3)
 
 			if prediction < 500:
 			   cv2.putText(im,'%s - %.0f' % (names[prediction],prediction),(x-10, y-10), cv2.FONT_HERSHEY_PLAIN,1,(0, 255, 0))
