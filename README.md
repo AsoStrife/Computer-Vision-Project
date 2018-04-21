@@ -1,21 +1,44 @@
 # Computer-Vision-Project
 
-The goal of this project was develop an LBP implementation in order to perform a Face Recognition.  
+## Goal of the project
+
+The goal of this project was develop a Face Recognition app using an **Local Binary Pattern** approach. After that we used the same approach in order to perform a real time Face Recognition app.   
 
 This project was developed for [Computer Vision](http://people.unica.it/giovannipuglisi/didattica/insegnamenti/?mu=Guide/PaginaADErogata.do;jsessionid=CBB39621933B1A5C549359BBEFDCA119.jvm1?ad_er_id=2017*N0*N0*S2*26520*20168&ANNO_ACCADEMICO=2017&mostra_percorsi=S&step=1&jsid=CBB39621933B1A5C549359BBEFDCA119.jvm1&nsc=ffffffff0909189545525d5f4f58455e445a4a42378b) course at [University of Cagliari](http://corsi.unica.it/informatica), supervised by prof. [Giovanni Puglisi](http://people.unica.it/giovannipuglisi/).
 
-For more information about ELBP read the original paper at this link: [Extended local binary patterns for texture classification](https://www.sciencedirect.com/science/article/pii/S0262885612000066).
+## Used tools
 
+Most of the project has been developed using Python as programming language, open source libraries and datasets. In particular it's been used:
 
+- Python 2.7.14
+- OpenCV
+- Sklearn
+- YaleFaces dataset
+- Pil
+
+Non open source tools: 
+
+- Matlab
+
+## Face Recognition
+
+Over the last ten years or so, face recognition has become a popular area of research in computer vision and one of the most successful applications of image analysis and understanding. A facial recognition system is a technology capable of identifying or verifying a person from a digital image or a video frame from a video source. 
+For a human is very easy to perform the face recognition process but the same process is not easy for a computer. Computers hahave to deal with numerous interfering factors related to
+treatment of images such as: wide chromatic variations, different and different angles of view.
+Beyond this there are other factors that can be affect the face recognition process like: occlusion, hair style, glasses, facial expression etc. 
+
+There are multiples methods in which facial recognition systems work, but in general, they work by comparing selected facial features from given image with faces within a database.
 
 # Project structure
 
-This project has the following structure
+In this chapter we'll be discuss the project structure and his general function.
 
 ```
 Computer-Vision-Project
-│   README.md
-│   main.py    
+│   LICENSE
+│   README.md 
+│   main.py 
+│   rotate.py 
 │
 └─── algorithms
 │    	LBP.py
@@ -25,19 +48,38 @@ Computer-Vision-Project
 |		YaleFaces_small.zip
 |
 └─── model
+│   	(here will be knn/naivebayes/svm.pkl)
 |
 └─── utils
 │   	dataset.py
 │   	utils.py
+└─── Matlab (subproject)
+│   	gauss.m
+│   	gaussianfilter.m
+│   	main.m
+│   	mask.mat
+│   	preproc2.m
+└─── Matlab (subproject)
+|		utils
+│   	│   	utils.py
+|		------------------
+│   	create_data.py
+│   	face_recognize.py
+│   	haarcascade_frontalface_default.xml
 ```
 
-In the `algorithms` folder you can find the basic LBP implementation and the ExtendedLBP implementation. 
+The folder starting with a capital letter rappresent a sub-project, the other folder are used to store the different libraries. 
 
-In the `dataset` folder there are the zip of the dataset used to test the code. You can add here your dataset.
+In the **root** there are:  
 
-In the `model` folder, the script store the training data values, in order to perform the prediction without traing the classifier again. 
+The `algorithms` folder, where there is the basic Local Binary Pattern implementation made by myself.  The `dataset` folder contain the zip of the datasets used to test the code. In the `model` folder will be saved training data values (the model), in order to perform the prediction without training the classifier again.  In the `utils` folder there are some helper function.
 
-In the `utils` folder there are some helper function.
+The **Matlab** folder contain some scripts that perform a illumination normalization. I've not wrote this script, I've just modified in order to work with YaleFaces Dataset.
+For more information about the scripts and the authors check their paper: [Enhanced Local Texture Feature Sets for Face Recognition under Difficult Lighting Conditions](http://parnec.nuaa.edu.cn/xtan/paper/TIP-05069-2009.R1-double.pdf).
+
+Authors page: [Xiaoyang Tan's Publications](http://parnec.nuaa.edu.cn/xtan/Publication.htm) 
+
+The **Realtime** folder contain the sub project that perform a real time face recognition using the pc camera. It contain two main scripts: `create_data.py` that generate the dataset shooting some photos using the camera. `face_recognize.py` trainis the classifier and perform the realtime face recognition. More detail will be given in the next chapters. 
 
 # Execute 
 
