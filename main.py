@@ -111,10 +111,11 @@ def main():
 
 	startTime = time.time()
 
+	filename = arguments.classifier + ".pkl"
+
 	# if --training is passet as parameter, perform the training of model
 	if arguments.training == True:
 		trainingTime = time.time()
-		filename = arguments.classifier + ".pkl"
 
 		if arguments.classifier == "svm": 
 			clf = svm.LinearSVC()
