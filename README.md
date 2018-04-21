@@ -155,7 +155,7 @@ By default LBP is performed splitting the images in 12x12 blocks.
 
 
 
-# 3.3 Run Real Time project
+## 3.3 Run Real Time project
 
 .. 
 
