@@ -2,19 +2,23 @@
 
 ## 1.1 Goal of the project
 
-The goal of this project was develop a Face Recognition app using an **Local Binary Pattern** approach. After that we used the same approach in order to perform a real time Face Recognition app.   
+The goal of this project was develop a Face Recognition app using a **Local Binary Pattern** approach. After that we used the same approach in order to perform a real time Face Recognition app.   
+
+At high level the system is able, with a set of familiar faces, to recognize with a certain accuracy a new face. To do this, different methods were used in order to compare the results in terms of accuracy.
 
 This project was developed for [Computer Vision](http://people.unica.it/giovannipuglisi/didattica/insegnamenti/?mu=Guide/PaginaADErogata.do;jsessionid=CBB39621933B1A5C549359BBEFDCA119.jvm1?ad_er_id=2017*N0*N0*S2*26520*20168&ANNO_ACCADEMICO=2017&mostra_percorsi=S&step=1&jsid=CBB39621933B1A5C549359BBEFDCA119.jvm1&nsc=ffffffff0909189545525d5f4f58455e445a4a42378b) course at [University of Cagliari](http://corsi.unica.it/informatica), supervised by prof. [Giovanni Puglisi](http://people.unica.it/giovannipuglisi/).
 
 ## 1.2 Used tools
 
-Most of the project has been developed using Python as programming language, open source libraries and datasets. In particular it's been used:
+Most of the project has been developed using Python as programming language, open source libraries and open source datasets. In particular it's been used:
 
 - Python 2.7.14
 - OpenCV
 - Sklearn
-- YaleFaces dataset
+- Extended Yale B Faces Dataset
 - Pil
+
+[Extended Yale B Faces Dataset](http://vision.ucsd.edu/～leekc/ExtYaleDatabase/ExtYaleB.html ) includes 2414 frontal pictures of faces belonging to 38 different subjects. For each subject there are 64 photos taken in different light conditions.
 
 Non open source tools: 
 
@@ -23,8 +27,7 @@ Non open source tools:
 ## 1.2 Face Recognition problem
 
 Over the last ten years or so, face recognition has become a popular area of research in computer vision and one of the most successful applications of image analysis and understanding. A facial recognition system is a technology capable of identifying or verifying a person from a digital image or a video frame from a video source. 
-For a human is very easy to perform the face recognition process but the same process is not easy for a computer. Computers hahave to deal with numerous interfering factors related to
-treatment of images such as: wide chromatic variations, different and different angles of view.
+For a human is very easy to perform the face recognition process but the same process is not easy for a computer. Computers have to deal with numerous interfering factors related to treatment of images such as: wide chromatic variations, different and different angles of view.
 Beyond this there are other factors that can be affect the face recognition process like: occlusion, hair style, glasses, facial expression etc. 
 
 There are multiples methods in which facial recognition systems work, but in general, they work by comparing selected facial features from given image with faces within a database.
@@ -38,10 +41,6 @@ LBP transforms image blocks into an array of labels. Such labels (or their stati
 In the basic version of the LBP we consider the values of a 3x3 pixel neighborhood. For each pixel in a cell, compare the pixel to each of its 8 neighbors (on its left-top, left-middle, left-bottom, right-top, etc.). Follow the pixels along a circle, i.e. clockwise or counter-clockwise. Where the center pixel's value is greater than the neighbor's value, write "0". Otherwise, write "1". This gives an 8-digit binary number (which is usually converted to decimal for convenience).
 
 In its generalized version, each pixel is considered in a circular neighborhood of **P** points with radius **r**. If the elements do not fall on a single pixel, their values are obtained by interpolation. Generally the number of neighboring pixels chosen is 8.	
-
-## 1.5 Fisherface
-
-...
 
 # 2. Project structure
 
@@ -84,14 +83,14 @@ Computer-Vision-Project
 
 The folder starting with a capital letter rappresent a sub-project, the other folder are used to store the different libraries. 
 
-In the **root** there are the `algorithms` folder, where there is the basic Local Binary Pattern implementation made by myself.  The `dataset` folder contain the zip of the datasets used to test the code. In the `model` folder will be saved training data values (the model), in order to perform the prediction without training the classifier again.  In the `utils` folder there are some helper function.
+In the **root** folder there are the `algorithms` folder, where there is the basic Local Binary Pattern implementation made by myself.  The `datasets` folder contain the zips of the datasets used to test the project. In the `model` folder will be saved training data values, in order to perform the prediction without training the classifier again.  In the `utils` folder there are some helper function.
 
-The **Matlab** folder contain some scripts that perform a illumination normalization. I've not wrote this script, I've just modified in order to work with YaleFaces Dataset.
-For more information about the scripts and the authors check their paper: [Enhanced Local Texture Feature Sets for Face Recognition under Difficult Lighting Conditions](http://parnec.nuaa.edu.cn/xtan/paper/TIP-05069-2009.R1-double.pdf).
+The **Matlab** folder contain some scripts that perform a illumination normalization. I've not wrote this scripts, I've just modified the `main.m` (previously called `demo`.) in order to work with YaleFaces Dataset.
+For more information about this scripts and the authors check their paper: [Enhanced Local Texture Feature Sets for Face Recognition under Difficult Lighting Conditions](http://parnec.nuaa.edu.cn/xtan/paper/TIP-05069-2009.R1-double.pdf).
 
 Authors page: [Xiaoyang Tan's Publications](http://parnec.nuaa.edu.cn/xtan/Publication.htm) 
 
-The **Realtime** folder contain the sub project that perform a real time face recognition using the pc camera. It contain two main scripts: `create_data.py` that generate the dataset shooting some photos using the camera. `face_recognize.py` trainis the classifier and perform the realtime face recognition. More detail will be given in the next chapters. 
+The **Realtime** folder contain the sub-project that perform a real time face recognition using the pc camera. It contain two main scripts: `create_data.py` that generate the dataset shooting some photos using the camera. `face_recognize.py` train the classifier and perform the real time face recognition. More details will be given in the next chapters. 
 
 # 3. Run the project 
 
@@ -157,15 +156,34 @@ By default LBP is performed splitting the images in 12x12 blocks.
 
 ## 3.3 Run Real Time project
 
-.. 
+This section basically work in two steps: 
 
+- Creation of the dataset
+- Training and real time classification
 
+First of all launch the `python create_data.py` with the following parameters: 
+
+```shell
+--name
+```
+
+Launching the script it will create inside `./datasets/CHOOSEN_NAME/` some photos shooted using the PC camera. The script use `CascadeClassifier`in order to perform Face Detection and cut out the face rettangle. Currently I choose to save 30 photos per subject. 
+
+Now is it possible to perform Face Recognition in real time launching `python face_recognize.py` with the following parameters: 
+
+```shell
+--algorithm [lbp]
+```
+
+The script, first of all, use the previously created dataset to train the classifier. If LBP is chosen it will be used SVM as classifier,  else is used a general default CV2 classifier. 
+
+After the training, `CascadeClassifier` is used to identify the face inside the scene and, when a face is identified, the classifier try to recognize it. 
 
 ## 3.4 Run Matlab project
 
-...
+In order to perform illumination normalization the `main.m` script need to have YaleFaces folder in the root. After that, launching the script using Matlab it will generate ModifiedYaleFaces folder wich contains the normalized images. 
 
-# 4. Benchmark and classification
+# 4. Experiments
 
 Below you will find the results I obtained using my PC (Dell XPS 15 9550, with Intel i7 6700HQ Skylake @ 2.60GHz)
 
