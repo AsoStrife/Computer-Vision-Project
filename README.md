@@ -1,5 +1,7 @@
 # 1. Computer-Vision-Project
 
+[TOC]
+
 ## 1.1 Goal of the project
 
 The goal of this project was develop a Face Recognition app using a **Local Binary Pattern** approach. After that we used the same approach in order to perform a real time Face Recognition app.   
@@ -172,7 +174,7 @@ Launching the script it will create inside `./datasets/CHOOSEN_NAME/` some photo
 Now is it possible to perform Face Recognition in real time launching `python face_recognize.py` with the following parameters: 
 
 ```shell
---algorithm [lbp]
+--algorithm [lbp, fisherface]
 ```
 
 The script, first of all, use the previously created dataset to train the classifier. If LBP is chosen it will be used SVM as classifier,  else is used a general default CV2 classifier. 
