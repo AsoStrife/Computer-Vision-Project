@@ -1,10 +1,10 @@
-# . Computer-Vision-Project
+# Computer-Vision-Project
 
 
 
-## 1.1 Goal of the project
+## 1.1 Introduction
 
-The goal of this project was develop a Face Recognition app using a **Local Binary Pattern** approach. After that we used the same approach in order to perform a real time Face Recognition app.   
+The goal of this project was develop a Face Recognition application using a **Local Binary Pattern** approach and after that, using the same approach, develop a real time Face Recognition application.   
 
 At high level the system is able, with a set of familiar faces, to recognize with a certain accuracy a new face. To do this, different methods were used in order to compare the results in terms of accuracy.
 
@@ -217,7 +217,7 @@ Average time for calculating the LBP: 18 seconds.
 | KNN           | 0.65                               | 0.66                             | 0.90                       |
 | NaiveBayes    | 0.70                               | 0.70                             | 0.93                       |
 
-SVM con illuminazione normalizzata è molto variabile. Da 0.33 a o.49. In genere anche gli altri iniziano ad essere valori molto variabili, ma non così tanto.
+With normalization illumination the accuracy using SVM is very variable. It get an accuracy starting by 0.33 to 0.49. Also the other classificator is very variable, but not so much.
 
 **Test with 3x3 blocks using LBP**
 
@@ -229,12 +229,19 @@ Average time for calculating the LBP: 14 seconds.
 | KNN           | 0.48                               | 0.48                             | 0.69                       |
 | NaiveBayes    | 0.35                               | 0.37                             | 0.66                       |
 
-**Test without splitting the image in blocks using LBP**
-
-| Classificator | Acc without histogram equalization | Acc. with histogram equalization | Normalization Illumination |
-| ------------- | ---------------------------------- | -------------------------------- | -------------------------- |
-| LinearSVM     |                                    |                                  |                            |
-| KNN           |                                    |                                  |                            |
-| NaiveBayes    |                                    |                                  |                            |
-
 ![](http://i67.tinypic.com/msykqq.png)
+
+# Conclusion 
+
+The goal of this project was develop a Face Recognition application using a **Local Binary Pattern** approach and after that, using the same approach, develop a real time Face Recognition application.   
+
+The goal can be considered achieved with excellent results.
+
+# References
+
+- [Python](https://www.python.org)
+- [Matlab](https://it.mathworks.com/products/matlab.html)
+- [OpenCV](https://opencv.org)
+- [Sklearn](http://scikit-learn.org/stable/)
+-  [Enhanced Local Texture Feature Sets for Face Recognition under Difficult Lighting Conditions](http://parnec.nuaa.edu.cn/xtan/paper/TIP-05069-2009.R1-double.pdf)
+
