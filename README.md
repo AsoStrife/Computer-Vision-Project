@@ -1,6 +1,6 @@
 # 1. Computer-Vision-Project
 
-[TOC]
+
 
 ## 1.1 Goal of the project
 
@@ -187,18 +187,38 @@ In order to perform illumination normalization the `main.m` script need to have 
 
 # 4. Experiments
 
-Below you will find the results I obtained using my PC (Dell XPS 15 9550, with Intel i7 6700HQ Skylake @ 2.60GHz)
+The features extraction methods and the accuracy was tested changing:
 
-For the classification task I've used `LinearSVM`
+- Classificator
+- The blocks size of LBP
+- Performing the normalization of illumination 
 
-| Dataset         | LBP time     | Training time | Testing time | Average Accuracy |
-| --------------- | ------------ | ------------- | ------------ | ---------------- |
-| YaleFaces       | ≈ 31 seconds | ≈ 33.1        | ≈ 37         | ≈ 0.98           |
-| YaleFaces_small | ≈ 4 seconds  | ≈ 4 seconds   | ≈ 4 seconds  | ≈ 0.99           |
+Below there are my results obtained with YaleFaces dataset using this PC: *Dell XPS 15 9550, with Intel i7 6700HQ Skylake @ 2.60GHz*.
 
-| Dataset         | ELBP time | Training time | Testing time | Average Accuracy |
-| --------------- | --------- | ------------- | ------------ | ---------------- |
-| YaleFaces       |           |               |              |                  |
-| YaleFaces_small |           |               |              |                  |
+
+
+**Test with 12x12 blocks using LBP** 
+
+| Classificator | LBP time | Acc. with histogram equalization | Acc without histogram equalization |
+| ------------- | -------- | -------------------------------- | ---------------------------------- |
+| LinearSVM     |          |                                  |                                    |
+| KNN           |          |                                  |                                    |
+| NaiveBayes    |          |                                  |                                    |
+
+**Test with 6x6 blocks using LBP**
+
+| Classificator | LBP time | Acc. with histogram equalization | Acc without histogram equalization |
+| ------------- | -------- | -------------------------------- | ---------------------------------- |
+| LinearSVM     |          |                                  |                                    |
+| KNN           |          |                                  |                                    |
+| NaiveBayes    |          |                                  |                                    |
+
+**Test without splitting the image in blocks using LBP**
+
+| Classificator | LBP time | Acc. with histogram equalization | Acc without histogram equalization |
+| ------------- | -------- | -------------------------------- | ---------------------------------- |
+| LinearSVM     |          |                                  |                                    |
+| KNN           |          |                                  |                                    |
+| NaiveBayes    |          |                                  |                                    |
 
 ![](http://i67.tinypic.com/msykqq.png)
