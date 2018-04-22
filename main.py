@@ -79,8 +79,14 @@ def main():
 
 			lbp_value = local_binary_pattern(img, 8, 1)
 
-			# Split img into 12*12 blocks
+			# Split img into 12*12 blocks (image size: 168 * 192)
 			shaped = blockshaped(lbp_value, 16, 14)
+
+			# Split img into 6*6 blocks (image size: 168 * 192)
+			#shaped = blockshaped(lbp_value, 32, 28)
+
+			# Split img into 3*3 blocks (image size: 168 * 192)
+			#shaped = blockshaped(lbp_value, 64, 56)
 
 			# Calculate the histogram for each block
 			xBlocks = []

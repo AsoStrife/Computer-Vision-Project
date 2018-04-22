@@ -1,4 +1,4 @@
-# 1. Computer-Vision-Project
+# . Computer-Vision-Project
 
 
 
@@ -199,26 +199,42 @@ Below there are my results obtained with YaleFaces dataset using this PC: *Dell 
 
 **Test with 12x12 blocks using LBP** 
 
-| Classificator | LBP time | Acc. with histogram equalization | Acc without histogram equalization |
-| ------------- | -------- | -------------------------------- | ---------------------------------- |
-| LinearSVM     |          |                                  |                                    |
-| KNN           |          |                                  |                                    |
-| NaiveBayes    |          |                                  |                                    |
+Average time for calculating the LBP: 32 seconds.
+
+| Classificator | Acc without histogram equalization | Acc. with histogram equalization | Normalization Illumination |
+| ------------- | ---------------------------------- | -------------------------------- | -------------------------- |
+| LinearSVM     | 0.94                               | 0.95                             | 0.99                       |
+| KNN           | 0.81                               | 0.81                             | 0.97                       |
+| NaiveBayes    | 0.82                               | 0.83                             | 0.96                       |
 
 **Test with 6x6 blocks using LBP**
 
-| Classificator | LBP time | Acc. with histogram equalization | Acc without histogram equalization |
-| ------------- | -------- | -------------------------------- | ---------------------------------- |
-| LinearSVM     |          |                                  |                                    |
-| KNN           |          |                                  |                                    |
-| NaiveBayes    |          |                                  |                                    |
+Average time for calculating the LBP: 18 seconds.
+
+| Classificator | Acc without histogram equalization | Acc. with histogram equalization | Normalization Illumination |
+| ------------- | ---------------------------------- | -------------------------------- | -------------------------- |
+| LinearSVM     | 0.40                               | 0.55                             | 0.40                       |
+| KNN           | 0.65                               | 0.66                             | 0.90                       |
+| NaiveBayes    | 0.70                               | 0.70                             | 0.93                       |
+
+SVM con illuminazione normalizzata è molto variabile. Da 0.33 a o.49. In genere anche gli altri iniziano ad essere valori molto variabili, ma non così tanto.
+
+**Test with 3x3 blocks using LBP**
+
+Average time for calculating the LBP: 14 seconds.
+
+| Classificator | Acc without histogram equalization | Acc. with histogram equalization | Normalization Illumination |
+| ------------- | ---------------------------------- | -------------------------------- | -------------------------- |
+| LinearSVM     | 0.05                               | 0.07                             | 0.05                       |
+| KNN           | 0.48                               | 0.48                             | 0.69                       |
+| NaiveBayes    | 0.35                               | 0.37                             | 0.66                       |
 
 **Test without splitting the image in blocks using LBP**
 
-| Classificator | LBP time | Acc. with histogram equalization | Acc without histogram equalization |
-| ------------- | -------- | -------------------------------- | ---------------------------------- |
-| LinearSVM     |          |                                  |                                    |
-| KNN           |          |                                  |                                    |
-| NaiveBayes    |          |                                  |                                    |
+| Classificator | Acc without histogram equalization | Acc. with histogram equalization | Normalization Illumination |
+| ------------- | ---------------------------------- | -------------------------------- | -------------------------- |
+| LinearSVM     |                                    |                                  |                            |
+| KNN           |                                    |                                  |                            |
+| NaiveBayes    |                                    |                                  |                            |
 
 ![](http://i67.tinypic.com/msykqq.png)
