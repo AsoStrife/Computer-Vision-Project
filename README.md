@@ -223,17 +223,17 @@ The tests was done splitting the dataset 77% for training and 33% for tests. The
 
 Below there are my results obtained with YaleFaces dataset using this PC: *Dell XPS 15 9550, with Intel i7 6700HQ Skylake @ 2.60GHz*.
 
-**Test with 12x12 blocks using LBP** 
+**Test with 3x3 blocks using LBP**
 
-Average time for calculating the LBP: 32 seconds.
+Average time for calculating the LBP: 14 seconds.
 
 | Classifier | Accuracy without histogram equalization | Accuracy with histogram equalization | Accuracy with Normalization Illumination |
 | ---------- | --------------------------------------- | ------------------------------------ | ---------------------------------------- |
-| LinearSVM  | 0.94                                    | 0.95                                 | 0.99                                     |
-| KNN        | 0.81                                    | 0.81                                 | 0.97                                     |
-| NaiveBayes | 0.82                                    | 0.83                                 | 0.96                                     |
+| LinearSVM  | 0.05                                    | 0.07                                 | 0.05                                     |
+| KNN        | 0.48                                    | 0.48                                 | 0.69                                     |
+| NaiveBayes | 0.35                                    | 0.37                                 | 0.66                                     |
 
-In this case linear SVM get the best results and using the normalization script we come close to the 100%. 
+All classifiers get poor result without the Matlab scripts. With this blocks size LinearSVM always get the worst results.
 
 **Test with 6x6 blocks using LBP**
 
@@ -247,17 +247,17 @@ Average time for calculating the LBP: 18 seconds.
 
 With normalization illumination the accuracy using SVM is very variable. It get an accuracy starting by 0.33 to 0.49. Also the other classifier is very variable, but not so much. In general NaiveBayes get the best result in all conditions. 
 
-**Test with 3x3 blocks using LBP**
+**Test with 12x12 blocks using LBP** 
 
-Average time for calculating the LBP: 14 seconds.
+Average time for calculating the LBP: 32 seconds.
 
 | Classifier | Accuracy without histogram equalization | Accuracy with histogram equalization | Accuracy with Normalization Illumination |
 | ---------- | --------------------------------------- | ------------------------------------ | ---------------------------------------- |
-| LinearSVM  | 0.05                                    | 0.07                                 | 0.05                                     |
-| KNN        | 0.48                                    | 0.48                                 | 0.69                                     |
-| NaiveBayes | 0.35                                    | 0.37                                 | 0.66                                     |
+| LinearSVM  | 0.94                                    | 0.95                                 | 0.99                                     |
+| KNN        | 0.81                                    | 0.81                                 | 0.97                                     |
+| NaiveBayes | 0.82                                    | 0.83                                 | 0.96                                     |
 
-All classifiers get poor result without the Matlab scripts. With this blocks size LinearSVM always get the worst results.
+In this case linear SVM get the best results and using the normalization script we come close to the 100%. 
 
 ------
 
