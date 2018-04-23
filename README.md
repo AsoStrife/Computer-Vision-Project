@@ -24,7 +24,7 @@ Non open source tools:
 
 - Matlab
 
-![YaleFacesDataset](Docs\images\dataset_original.png)
+![YaleFacesDataset](https://raw.githubusercontent.com/AsoStrife/Computer-Vision-Project/master/Docs\images\dataset_original.png)
 
 ## 1.2 Face Recognition problem
 
@@ -46,7 +46,7 @@ In its generalized version, each pixel is considered in a circular neighborhood 
 
 In this project a multi-blocks LBP were used. 
 
-![LocalBinaryPattern](Docs\images\local_binary_pattern.jpg)
+![LocalBinaryPattern](https://raw.githubusercontent.com/AsoStrife/Computer-Vision-Project/master/Docs\images\local_binary_pattern.jpg)
 
 # 2. Project structure
 
@@ -148,7 +148,7 @@ By default launching only `python main.py` the script use  YaleFaces dataset wit
 `--histEq` is helpful because perform an histogram equalization before calculating the LBP.
 If `--output` is setted the script will produce inside `./datasets/your_chosen_algorithm_/your_chosen_dataset/` the PNG of the LBP calculated for each image.
 
-![LBP](Docs\images\dataset_LBP.png)
+![LBP](https://raw.githubusercontent.com/AsoStrife/Computer-Vision-Project/master/Docs\images\dataset_LBP.png)
 
 With `--classifier` you can choose which classifier to use between SVM, KNN and NaiveBayes (obviously for each classifier you must perform the training of the model).
 
@@ -160,7 +160,7 @@ By default LBP is performed splitting the images in 12x12 blocks.
 
 `python main.py --training --output --histEq` 
 
-![MainProject](Docs\images\main_script.png)
+![MainProject](https://raw.githubusercontent.com/AsoStrife/Computer-Vision-Project/master/Docs\images\main_script.png)
 
 ## 3.3 Run Real Time project
 
@@ -187,13 +187,13 @@ The script, first of all, use the previously created dataset to train the classi
 
 After the training, `CascadeClassifier` is used to identify the face inside the scene and, when a face is identified, the classifier try to recognize it. 
 
-![RealTimeProject](Docs\images\realtime_face_recognition.png)
+![RealTimeProject](https://raw.githubusercontent.com/AsoStrife/Computer-Vision-Project/master/Docs\images\realtime_face_recognition.png)
 
 ## 3.4 Run Matlab project
 
 In order to perform illumination normalization the `main.m` script need to have YaleFaces folder in the root. After that, launching the script using Matlab it will generate ModifiedYaleFaces folder which contains the normalized images. 
 
-![IlluminationNormalization](Docs\images\trasformation.png)
+![IlluminationNormalization](https://raw.githubusercontent.com/AsoStrife/Computer-Vision-Project/master/Docs\images\trasformation.png)
 
 # 4. Experiments
 
@@ -238,8 +238,6 @@ Average time for calculating the LBP: 14 seconds.
 | LinearSVM     | 0.05                               | 0.07                             | 0.05                       |
 | KNN           | 0.48                               | 0.48                             | 0.69                       |
 | NaiveBayes    | 0.35                               | 0.37                             | 0.66                       |
-
-![](http://i67.tinypic.com/msykqq.png)
 
 # Conclusion 
 
