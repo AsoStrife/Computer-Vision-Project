@@ -2,7 +2,7 @@
 - [Computer-Vision-Project](#computer-vision-project)
   * [1.1 Introduction](#11-introduction)
   * [1.2 Used tools](#12-used-tools)
-  * [1.2 Face Recognition problem](#12-face-recognition-problem)
+  * [1.3Face Recognition problem](#13-face-recognition-problem)
   * [1.4 Local Binary Pattern](#14-local-binary-pattern)
 - [2. Project structure](#2-project-structure)
 - [3. Run the project](#3-run-the-project)
@@ -44,7 +44,7 @@ Non open source tools:
 
 *Picture 1: the Yale Faces Dataset B*
 
-## 1.2 Face Recognition problem
+## 1.3 Face Recognition problem
 
 Over the last ten years or so, face recognition has become a popular area of research in computer vision and one of the most successful applications of image analysis and understanding. A facial recognition system is a technology capable of identifying or verifying a person from a digital image or a video frame from a video source. 
 For a human is very easy to perform the face recognition process but the same process is not easy for a computer. Computers have to deal with numerous interfering factors related to treatment of images such as: wide chromatic variations, different and different angles of view.
