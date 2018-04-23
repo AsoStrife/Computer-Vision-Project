@@ -217,7 +217,7 @@ The features extraction methods and the accuracy was tested changing:
 - The blocks size of LBP
 - Performing the normalization of illumination 
 
-The tests was done splitting the dataset 77% for training and 33% for tests. The final values is the result of the average value of 5 tests with different training/test set. 
+The tests were done splitting the dataset 77% for training and 33% for tests. The final values is the result of the average value of 5 tests with different training/test set. 
 
 Below there are my results obtained with YaleFaces dataset using this PC: *Dell XPS 15 9550, with Intel i7 6700HQ Skylake @ 2.60GHz*.
 
