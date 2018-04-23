@@ -272,7 +272,7 @@ Splitting the images in 12x12 blocks it get worse result than LinearSVM (without
 
 # Conclusion 
 
-The goal of this project was develop a Face Recognition application using a **Local Binary Pattern** approach and after that, using the same approach, develop a real time Face Recognition application.   
+The goal of this project was to develop a Face Recognition application using a **Local Binary Pattern** approach and after that, using the same approach, develop a real time Face Recognition application.   
 
 The goal can be considered achieved with excellent results. 
 
@@ -291,5 +291,4 @@ NaiveBayes work good in the most of the case, even if we split the images with l
 - [Enhanced Local Texture Feature Sets for Face Recognition under Difficult Lighting Conditions](http://parnec.nuaa.edu.cn/xtan/paper/TIP-05069-2009.R1-double.pdf)
 - [Multiresolution gray-scale and rotation invariant texture classification with local binary patterns](https://ieeexplore.ieee.org/document/1017623/authors)
 - [Face Description with Local Binary Patterns: Application to Face Recognition](https://ieeexplore.ieee.org/document/1717463/)
-
 
