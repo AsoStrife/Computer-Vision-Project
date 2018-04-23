@@ -18,7 +18,7 @@
 
 ## 1.1 Introduction
 
-The goal of this project was develop a Face Recognition application using a **Local Binary Pattern** approach and, using the same approach, develop a real time Face Recognition application.   
+The goal of this project was to develop a Face Recognition application using a **Local Binary Pattern** approach and, using the same approach, develop a real time Face Recognition application.   
 
 At high level the system is able, with a set of familiar faces, to recognize with a certain accuracy a new face. To do this, different methods were used in order to compare the results in terms of accuracy.
 
