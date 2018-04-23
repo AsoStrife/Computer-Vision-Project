@@ -1,10 +1,8 @@
 # Computer-Vision-Project
 
-
-
 ## 1.1 Introduction
 
-The goal of this project was develop a Face Recognition application using a **Local Binary Pattern** approach and after that, using the same approach, develop a real time Face Recognition application.   
+The goal of this project was develop a Face Recognition application using a **Local Binary Pattern** approach and, using the same approach, develop a real time Face Recognition application.   
 
 At high level the system is able, with a set of familiar faces, to recognize with a certain accuracy a new face. To do this, different methods were used in order to compare the results in terms of accuracy.
 
@@ -26,6 +24,8 @@ Non open source tools:
 
 - Matlab
 
+![YaleFacesDataset](Docs\images\dataset_original.png)
+
 ## 1.2 Face Recognition problem
 
 Over the last ten years or so, face recognition has become a popular area of research in computer vision and one of the most successful applications of image analysis and understanding. A facial recognition system is a technology capable of identifying or verifying a person from a digital image or a video frame from a video source. 
@@ -43,6 +43,10 @@ LBP transforms image blocks into an array of labels. Such labels (or their stati
 In the basic version of the LBP we consider the values of a 3x3 pixel neighborhood. For each pixel in a cell, compare the pixel to each of its 8 neighbors (on its left-top, left-middle, left-bottom, right-top, etc.). Follow the pixels along a circle, i.e. clockwise or counter-clockwise. Where the center pixel's value is greater than the neighbor's value, write "0". Otherwise, write "1". This gives an 8-digit binary number (which is usually converted to decimal for convenience).
 
 In its generalized version, each pixel is considered in a circular neighborhood of **P** points with radius **r**. If the elements do not fall on a single pixel, their values are obtained by interpolation. Generally the number of neighboring pixels chosen is 8.	
+
+In this project a multi-blocks LBP were used. 
+
+![LocalBinaryPattern](Docs\images\local_binary_pattern.jpg)
 
 # 2. Project structure
 
@@ -74,7 +78,7 @@ Computer-Vision-Project
 │   	main.m
 │   	mask.mat
 │   	preproc2.m
-└─── Matlab (subproject)
+└─── RealTime (subproject)
 |		utils
 │   	│   	utils.py
 |		------------------
@@ -83,11 +87,11 @@ Computer-Vision-Project
 │   	haarcascade_frontalface_default.xml
 ```
 
-The folder starting with a capital letter rappresent a sub-project, the other folder are used to store the different libraries. 
+The folder that starting with a capital letter represents a sub-project, the other folders are used to store the different libraries. 
 
 In the **root** folder there are the `algorithms` folder, where there is the basic Local Binary Pattern implementation made by myself.  The `datasets` folder contain the zips of the datasets used to test the project. In the `model` folder will be saved training data values, in order to perform the prediction without training the classifier again.  In the `utils` folder there are some helper function.
 
-The **Matlab** folder contain some scripts that perform a illumination normalization. I've not wrote this scripts, I've just modified the `main.m` (previously called `demo`.) in order to work with YaleFaces Dataset.
+The **Matlab** folder contain some scripts that perform a illumination normalization. I've not wrote this scripts, I've just modified the `main.m` (previously called `demo.m`) in order to work with YaleFaces Dataset.
 For more information about this scripts and the authors check their paper: [Enhanced Local Texture Feature Sets for Face Recognition under Difficult Lighting Conditions](http://parnec.nuaa.edu.cn/xtan/paper/TIP-05069-2009.R1-double.pdf).
 
 Authors page: [Xiaoyang Tan's Publications](http://parnec.nuaa.edu.cn/xtan/Publication.htm) 
@@ -98,7 +102,7 @@ The **Realtime** folder contain the sub-project that perform a real time face re
 
 ## 3.1 Install dependencies
 
-In order to run, test and modify the source code you must install the following packages.
+In order to run, test and modify the source code must be installed the following packages.
 
 ```shell
 #CV2
@@ -154,7 +158,7 @@ By default LBP is performed splitting the images in 12x12 blocks.
 
 `python main.py --training --output --histEq` 
 
-
+![MainProject](Docs\images\main_script.png)
 
 ## 3.3 Run Real Time project
 
@@ -181,9 +185,13 @@ The script, first of all, use the previously created dataset to train the classi
 
 After the training, `CascadeClassifier` is used to identify the face inside the scene and, when a face is identified, the classifier try to recognize it. 
 
+![RealTimeProject](Docs\images\realtime_face_recognition.png)
+
 ## 3.4 Run Matlab project
 
-In order to perform illumination normalization the `main.m` script need to have YaleFaces folder in the root. After that, launching the script using Matlab it will generate ModifiedYaleFaces folder wich contains the normalized images. 
+In order to perform illumination normalization the `main.m` script need to have YaleFaces folder in the root. After that, launching the script using Matlab it will generate ModifiedYaleFaces folder which contains the normalized images. 
+
+![IlluminationNormalization](Docs\images\trasformation.png)
 
 # 4. Experiments
 
