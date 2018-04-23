@@ -148,6 +148,8 @@ By default launching only `python main.py` the script use  YaleFaces dataset wit
 `--histEq` is helpful because perform an histogram equalization before calculating the LBP.
 If `--output` is setted the script will produce inside `./datasets/your_chosen_algorithm_/your_chosen_dataset/` the PNG of the LBP calculated for each image.
 
+![LBP](Docs\images\dataset_LBP.png)
+
 With `--classifier` you can choose which classifier to use between SVM, KNN and NaiveBayes (obviously for each classifier you must perform the training of the model).
 
 By default LBP is performed splitting the images in 12x12 blocks.
