@@ -199,51 +199,74 @@ In order to perform illumination normalization the `main.m` script need to have 
 
 The features extraction methods and the accuracy was tested changing:
 
-- Classificator
+- Classifier
 - The blocks size of LBP
 - Performing the normalization of illumination 
 
+The tests was done splitting the dataset 77% for training and 33% for tests. The final values is the result of the average value of 5 tests with different training/test set. 
+
 Below there are my results obtained with YaleFaces dataset using this PC: *Dell XPS 15 9550, with Intel i7 6700HQ Skylake @ 2.60GHz*.
-
-
 
 **Test with 12x12 blocks using LBP** 
 
 Average time for calculating the LBP: 32 seconds.
 
-| Classificator | Acc without histogram equalization | Acc. with histogram equalization | Normalization Illumination |
-| ------------- | ---------------------------------- | -------------------------------- | -------------------------- |
-| LinearSVM     | 0.94                               | 0.95                             | 0.99                       |
-| KNN           | 0.81                               | 0.81                             | 0.97                       |
-| NaiveBayes    | 0.82                               | 0.83                             | 0.96                       |
+| Classifier | Accuracy without histogram equalization | Accuracy with histogram equalization | Accuracy with Normalization Illumination |
+| ---------- | --------------------------------------- | ------------------------------------ | ---------------------------------------- |
+| LinearSVM  | 0.94                                    | 0.95                                 | 0.99                                     |
+| KNN        | 0.81                                    | 0.81                                 | 0.97                                     |
+| NaiveBayes | 0.82                                    | 0.83                                 | 0.96                                     |
+
+In this case linear SVM get the best results and using the normalization script we come close to the 100%. 
 
 **Test with 6x6 blocks using LBP**
 
 Average time for calculating the LBP: 18 seconds.
 
-| Classificator | Acc without histogram equalization | Acc. with histogram equalization | Normalization Illumination |
-| ------------- | ---------------------------------- | -------------------------------- | -------------------------- |
-| LinearSVM     | 0.40                               | 0.55                             | 0.40                       |
-| KNN           | 0.65                               | 0.66                             | 0.90                       |
-| NaiveBayes    | 0.70                               | 0.70                             | 0.93                       |
+| Classifier | Accuracy without histogram equalization | Accuracy with histogram equalization | Accuracy with Normalization Illumination |
+| ---------- | --------------------------------------- | ------------------------------------ | ---------------------------------------- |
+| LinearSVM  | 0.40                                    | 0.55                                 | 0.40                                     |
+| KNN        | 0.65                                    | 0.66                                 | 0.90                                     |
+| NaiveBayes | 0.70                                    | 0.70                                 | 0.93                                     |
 
-With normalization illumination the accuracy using SVM is very variable. It get an accuracy starting by 0.33 to 0.49. Also the other classificator is very variable, but not so much.
+With normalization illumination the accuracy using SVM is very variable. It get an accuracy starting by 0.33 to 0.49. Also the other classifier is very variable, but not so much. In general NaiveBayes get the best result in all conditions. 
 
 **Test with 3x3 blocks using LBP**
 
 Average time for calculating the LBP: 14 seconds.
 
-| Classificator | Acc without histogram equalization | Acc. with histogram equalization | Normalization Illumination |
-| ------------- | ---------------------------------- | -------------------------------- | -------------------------- |
-| LinearSVM     | 0.05                               | 0.07                             | 0.05                       |
-| KNN           | 0.48                               | 0.48                             | 0.69                       |
-| NaiveBayes    | 0.35                               | 0.37                             | 0.66                       |
+| Classifier | Accuracy without histogram equalization | Accuracy with histogram equalization | Accuracy with Normalization Illumination |
+| ---------- | --------------------------------------- | ------------------------------------ | ---------------------------------------- |
+| LinearSVM  | 0.05                                    | 0.07                                 | 0.05                                     |
+| KNN        | 0.48                                    | 0.48                                 | 0.69                                     |
+| NaiveBayes | 0.35                                    | 0.37                                 | 0.66                                     |
+
+All classifiers get poor result without the Matlab scripts. With this blocks size LinearSVM always get the worst results.
+
+------
+
+In general the first thing that we can notice is that splitting the images into blocks in order to calculate the LBP is essential to obtain satisfactory results.
+
+Splitting the images into 12*12 get the best results.
+
+Normalize the lighting improve the classifier score in the most of the case, except for the LinearSVM with larger block size (3x3 and 6x6).
+
+KNN get average score, but we must specify that this classifier is instance based, so it is not good in a realistic case. Some faces can't be classified if there are not a very similar element in the training set. 
+
+NaiveBayes at least, get a good result in many different case. 
+Splitting the images in 12x12 blocks it get worse result than LinearSVM (without Normalization Illumination)  yes, but still get good result with smaller blocks.
 
 # Conclusion 
 
 The goal of this project was develop a Face Recognition application using a **Local Binary Pattern** approach and after that, using the same approach, develop a real time Face Recognition application.   
 
-The goal can be considered achieved with excellent results.
+The goal can be considered achieved with excellent results. 
+
+In general we can say that LinearSVM perform the best results but need to split the images in very small blocks (at least 12x12 blocks) and the scene must be under control. These compromises are burdensome in terms of computational load.
+
+With different and smaller blocks size LinearSVM get the worse result if compared with KNN and NaiveBayes. 
+
+NaiveBayes work good in the most of the case, even if we split the images with large blocks (3x3).
 
 # References
 
