@@ -42,6 +42,8 @@ Non open source tools:
 
 ![YaleFacesDataset](https://raw.githubusercontent.com/AsoStrife/Computer-Vision-Project/master/Docs/images/dataset_original.png)
 
+*Picture 1: the Yale Faces Dataset B*
+
 ## 1.2 Face Recognition problem
 
 Over the last ten years or so, face recognition has become a popular area of research in computer vision and one of the most successful applications of image analysis and understanding. A facial recognition system is a technology capable of identifying or verifying a person from a digital image or a video frame from a video source. 
@@ -64,6 +66,8 @@ In this project a multi-blocks LBP were used.
 
 ![LocalBinaryPattern](https://raw.githubusercontent.com/AsoStrife/Computer-Vision-Project/master/Docs/images/local_binary_pattern.jpg)
 
+*Picture 2: an example of multi block Local Binary Pattern*
+
 # 2. Project structure
 
 In this chapter we'll be discuss the project structure and his general function.
@@ -78,22 +82,13 @@ Computer-Vision-Project
 └─── algorithms
 │    	LBP.py
 |
-└─── _datasets
-│   	YaleFaces.zip
-|		YaleFaces_small.zip
-|
 └─── model
 │   	(here will be knn/naivebayes/svm.pkl)
 |
 └─── utils
 │   	dataset.py
 │   	utils.py
-└─── Matlab (subproject)
-│   	gauss.m
-│   	gaussianfilter.m
-│   	main.m
-│   	mask.mat
-│   	preproc2.m
+|
 └─── RealTime (subproject)
 |		utils
 │   	│   	utils.py
@@ -106,11 +101,6 @@ Computer-Vision-Project
 The folder that starting with a capital letter represents a sub-project, the other folders are used to store the different libraries. 
 
 In the **root** folder there are the `algorithms` folder, where there is the basic Local Binary Pattern implementation made by myself.  The `datasets` folder contain the zips of the datasets used to test the project. In the `model` folder will be saved training data values, in order to perform the prediction without training the classifier again.  In the `utils` folder there are some helper function.
-
-The **Matlab** folder contain some scripts that perform a illumination normalization. I've not wrote this scripts, I've just modified the `main.m` (previously called `demo.m`) in order to work with YaleFaces Dataset.
-For more information about this scripts and the authors check their paper: [Enhanced Local Texture Feature Sets for Face Recognition under Difficult Lighting Conditions](http://parnec.nuaa.edu.cn/xtan/paper/TIP-05069-2009.R1-double.pdf).
-
-Authors page: [Xiaoyang Tan's Publications](http://parnec.nuaa.edu.cn/xtan/Publication.htm) 
 
 The **Realtime** folder contain the sub-project that perform a real time face recognition using the pc camera. It contain two main scripts: `create_data.py` that generate the dataset shooting some photos using the camera. `face_recognize.py` train the classifier and perform the real time face recognition. More details will be given in the next chapters. 
 
@@ -166,6 +156,8 @@ If `--output` is setted the script will produce inside `./datasets/your_chosen_a
 
 ![LBP](https://raw.githubusercontent.com/AsoStrife/Computer-Vision-Project/master/Docs/images/dataset_LBP.png)
 
+*Picture 3: the LBP result on Yale Faces Dataset*
+
 With `--classifier` you can choose which classifier to use between SVM, KNN and NaiveBayes (obviously for each classifier you must perform the training of the model).
 
 By default LBP is performed splitting the images in 12x12 blocks.
@@ -177,6 +169,8 @@ By default LBP is performed splitting the images in 12x12 blocks.
 `python main.py --training --output --histEq` 
 
 ![MainProject](https://raw.githubusercontent.com/AsoStrife/Computer-Vision-Project/master/Docs/images/main_script.png)
+
+*Picture 4: screenshot of main.py script*
 
 ## 3.3 Run Real Time project
 
@@ -205,11 +199,15 @@ After the training, `CascadeClassifier` is used to identify the face inside the 
 
 ![RealTimeProject](https://raw.githubusercontent.com/AsoStrife/Computer-Vision-Project/master/Docs/images/realtime_face_recognition.png)
 
-## 3.4 Run Matlab project
+*Picture 5: a screenshot of real time application*
 
-In order to perform illumination normalization the `main.m` script need to have YaleFaces folder in the root. After that, launching the script using Matlab it will generate ModifiedYaleFaces folder which contains the normalized images. 
+## 3.4 Normalization Illumination
+
+Starting by this paper: [Enhanced Local Texture Feature Sets for Face Recognition under Difficult Lighting Conditions](http://parnec.nuaa.edu.cn/xtan/paper/TIP-05069-2009.R1-double.pdf) (authors page: [Xiaoyang Tan's Publications](http://parnec.nuaa.edu.cn/xtan/Publication.htm)) and his open source matlab code I perfomed a normalization of lighting as you can see in the picture.
 
 ![IlluminationNormalization](https://raw.githubusercontent.com/AsoStrife/Computer-Vision-Project/master/Docs/images/trasformation.png)
+
+*Picture 5: the result of Normalization Illumination*
 
 # 4. Experiments
 
@@ -290,5 +288,7 @@ NaiveBayes work good in the most of the case, even if we split the images with l
 - [Matlab](https://it.mathworks.com/products/matlab.html)
 - [OpenCV](https://opencv.org)
 - [Sklearn](http://scikit-learn.org/stable/)
--  [Enhanced Local Texture Feature Sets for Face Recognition under Difficult Lighting Conditions](http://parnec.nuaa.edu.cn/xtan/paper/TIP-05069-2009.R1-double.pdf)
+- [Enhanced Local Texture Feature Sets for Face Recognition under Difficult Lighting Conditions](http://parnec.nuaa.edu.cn/xtan/paper/TIP-05069-2009.R1-double.pdf)
+- [Multiresolution gray-scale and rotation invariant texture classification with local binary patterns](https://ieeexplore.ieee.org/document/1017623/authors)
+- [Face Description with Local Binary Patterns: Application to Face Recognition](https://ieeexplore.ieee.org/document/1717463/)
 
