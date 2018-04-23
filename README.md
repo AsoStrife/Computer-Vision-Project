@@ -207,7 +207,7 @@ Starting by this paper: [Enhanced Local Texture Feature Sets for Face Recognitio
 
 ![IlluminationNormalization](https://raw.githubusercontent.com/AsoStrife/Computer-Vision-Project/master/Docs/images/trasformation.png)
 
-*Picture 5: the result of Normalization Illumination*
+*Picture 6: the result of Normalization Illumination*
 
 # 4. Experiments
 
@@ -291,4 +291,5 @@ NaiveBayes work good in the most of the case, even if we split the images with l
 - [Enhanced Local Texture Feature Sets for Face Recognition under Difficult Lighting Conditions](http://parnec.nuaa.edu.cn/xtan/paper/TIP-05069-2009.R1-double.pdf)
 - [Multiresolution gray-scale and rotation invariant texture classification with local binary patterns](https://ieeexplore.ieee.org/document/1017623/authors)
 - [Face Description with Local Binary Patterns: Application to Face Recognition](https://ieeexplore.ieee.org/document/1717463/)
+
 
