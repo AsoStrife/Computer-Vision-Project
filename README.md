@@ -1,4 +1,20 @@
 # Computer-Vision-Project
+- [Computer-Vision-Project](#computer-vision-project)
+  * [1.1 Introduction](#11-introduction)
+  * [1.2 Used tools](#12-used-tools)
+  * [1.2 Face Recognition problem](#12-face-recognition-problem)
+  * [1.4 Local Binary Pattern](#14-local-binary-pattern)
+- [2. Project structure](#2-project-structure)
+- [3. Run the project](#3-run-the-project)
+  * [3.1 Install dependencies](#31-install-dependencies)
+  * [3.2 Run Main project](#32-run-main-project)
+      - [Usage example](#usage-example)
+  * [3.3 Run Real Time project](#33-run-real-time-project)
+  * [3.4 Run Matlab project](#34-run-matlab-project)
+- [4. Experiments](#4-experiments)
+- [Conclusion](#conclusion)
+- [References](#references)
+
 
 ## 1.1 Introduction
 
