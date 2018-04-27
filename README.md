@@ -1,8 +1,9 @@
 # Computer-Vision-Project
+
 - [Computer-Vision-Project](#computer-vision-project)
   * [1.1 Introduction](#11-introduction)
   * [1.2 Used tools](#12-used-tools)
-  * [1.3Face Recognition problem](#13-face-recognition-problem)
+  * [1.3 Face Recognition problem](#13-face-recognition-problem)
   * [1.4 Local Binary Pattern](#14-local-binary-pattern)
 - [2. Project structure](#2-project-structure)
 - [3. Run the project](#3-run-the-project)
@@ -10,8 +11,10 @@
   * [3.2 Run Main project](#32-run-main-project)
       - [Usage example](#usage-example)
   * [3.3 Run Real Time project](#33-run-real-time-project)
-  * [3.4 Run Matlab project](#34-run-matlab-project)
+  * [3.4 Normalization Illumination](#34-normalization-illumination)
 - [4. Experiments](#4-experiments)
+  * [4.1 Main project](#41-main-project)
+  * [4.2 Real time project](#42-real-time-project)
 - [Conclusion](#conclusion)
 - [References](#references)
 
@@ -274,7 +277,7 @@ Splitting the images in 12x12 blocks it get worse result than LinearSVM (without
 
 ## 4.2 Real time project
 
-Several tests have been done in order to test the performance of Local Binary Pattern approach. 
+Several tests have been done in order to test the performance of Local Binary Pattern approach with Linear SVM classifier in a real time scenario. 
 
 In particular, have been tested this situations: 
 
@@ -288,19 +291,19 @@ In particular, have been tested this situations:
   - recognize two subjects in the same scene in normal light condition 
   - recognize two subjects in the same scene but adding some occlusions (glasses, scarves, etc.)
 
-In summary we can say that the LBP work very good in the both case with normal light condition. If the light is good as the training photos, the algorithm recognize the faces even if the subject move his head a few degrees. 
+In summary we can say that the LBP work very good in the both case with normal light condition. If the light is good as the training set photos, the algorithm recognize the faces even if the subject move his head a few degrees. 
 
 Also adding some occlusion the algorithm seem work properly, in fact it is notable one thing: if the occlusion isn't very big the classifier recognize the face; if the occlusion is too intrusive the face detection algorithm doesn't find the face so it's not even launched the classifier. 
 
 ![OcclusionTest](https://raw.githubusercontent.com/AsoStrife/Computer-Vision-Project/master/Docs/images/occlusion-example.png)
 
-*Picture 7: screenshot of test with occlusion*
+*Picture 7: test with occlusion*
 
-The classification becomes less accurate when other subject were add into the dataset and into the scene. 
+The classification becomes less accurate when other subjects are added into the dataset and into the scene. 
 
-Adding more faces in the dataset leads a more complex training and more complex classification. In this case is it possible to see the limits of LBP in the real time case.
+Adding more faces in the dataset leads a more complex training process and more complex classification. In this case is it possible to see the limits of LBP in the real time case.
 
-A person can't be perfectly still, so even a small movement that produce a little light variation can produce a significant changes at low level and obtain a not accurate classification.
+A person can't be perfectly still, so even a small movement that produce a little light variation can produce a significant changes at low level processing and obtain a not accurate classification.
 
 But adding more subjects into the scene with a small dataset produce anyway a very good result.
 
@@ -326,11 +329,8 @@ NaiveBayes work good in the most of the case, even if we split the images with l
 
 # References
 
-- [Python](https://www.python.org)
-- [Matlab](https://it.mathworks.com/products/matlab.html)
-- [OpenCV](https://opencv.org)
-- [Sklearn](http://scikit-learn.org/stable/)
-- [Enhanced Local Texture Feature Sets for Face Recognition under Difficult Lighting Conditions](http://parnec.nuaa.edu.cn/xtan/paper/TIP-05069-2009.R1-double.pdf)
-- [Multiresolution gray-scale and rotation invariant texture classification with local binary patterns](https://ieeexplore.ieee.org/document/1017623/authors)
-- [Face Description with Local Binary Patterns: Application to Face Recognition](https://ieeexplore.ieee.org/document/1717463/)
+- [[1] X.Tan and  B.Triggs,  Enhanced Local Texture Feature Sets for Face Recognition under Difficult Lighting Conditions, IEEE Transactions on Image Processing,  19(6), 1635-1650,2010.](http://parnec.nuaa.edu.cn/xtan/paper/TIP-05069-2009.R1-double.pdf)
+- [[2] T. Ojala, M. Pietikainen and T. Maenpaa, "Multiresolution gray-scale and rotation invariant texture classification with local binary patterns," in IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 24, no. 7, pp. 971-987, Jul 2002.](https://ieeexplore.ieee.org/document/1017623/authors)
+- [[3] Timo Ahonen, Student Member, IEEE, Abdenour Hadid, and Matti Pietika ̈inen, Senior Member, IEEE: Face Description with Local Binary Patterns: Application to Face Recognition](https://ieeexplore.ieee.org/document/1717463/)
+
 
