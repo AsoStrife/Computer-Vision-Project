@@ -211,6 +211,8 @@ Starting by this paper: [Enhanced Local Texture Feature Sets for Face Recognitio
 
 # 4. Experiments
 
+## 4.1 Main project
+
 The features extraction methods and the accuracy was tested changing:
 
 - Classifier
@@ -259,7 +261,7 @@ In this case linear SVM get the best results and using the normalization script 
 
 ------
 
-In general the first thing that we can notice is that splitting the images into blocks in order to calculate the LBP is essential to obtain satisfactory results.
+In general the first thing that can be notice is that splitting the images into blocks in order to calculate the LBP is essential to obtain satisfactory results.
 
 Splitting the images into 12*12 get the best results.
 
@@ -269,6 +271,46 @@ KNN get average score, but we must specify that this classifier is instance base
 
 NaiveBayes at least, get a good result in many different case. 
 Splitting the images in 12x12 blocks it get worse result than LinearSVM (without Normalization Illumination)  yes, but still get good result with smaller blocks.
+
+## 4.2 Real time project
+
+Several tests have been done in order to test the performance of Local Binary Pattern approach. 
+
+In particular, have been tested this situations: 
+
+- With only two person stored in the dataset:
+  - recognize one subject in normal light condition
+  - recognize one subject in normal light condition but adding some occlusions (glasses, scarves, etc.)
+  - the previous situations but changing the light condition 
+- With more than two person stored in the dataset:
+  - recognize one subject in normal light condition 
+  - recognize one subject in normal light condition but adding some occlusions (glasses, scarves, etc.)
+  - recognize two subjects in the same scene in normal light condition 
+  - recognize two subjects in the same scene but adding some occlusions (glasses, scarves, etc.)
+
+In summary we can say that the LBP work very good in the both case with normal light condition. If the light is good as the training photos, the algorithm recognize the faces even if the subject move his head a few degrees. 
+
+Also adding some occlusion the algorithm seem work properly, in fact it is notable one thing: if the occlusion isn't very big the classifier recognize the face; if the occlusion is too intrusive the face detection algorithm doesn't find the face so it's not even launched the classifier. 
+
+![OcclusionTest](https://raw.githubusercontent.com/AsoStrife/Computer-Vision-Project/master/Docs/images/occlusion-example.png)
+
+*Picture 7: screenshot of test with occlusion*
+
+The classification becomes less accurate when other subject were add into the dataset and into the scene. 
+
+Adding more faces in the dataset leads a more complex training and more complex classification. In this case is it possible to see the limits of LBP in the real time case.
+
+A person can't be perfectly still, so even a small movement that produce a little light variation can produce a significant changes at low level and obtain a not accurate classification.
+
+But adding more subjects into the scene with a small dataset produce anyway a very good result.
+
+![OcclusionTest-2](https://raw.githubusercontent.com/AsoStrife/Computer-Vision-Project/master/Docs/images/occlusion-example-2.png)
+
+*Picture 8: occlusion test with 2 subjects into the scene* 
+
+As you can see at Picture 8, even adding an occlusion the classifier work very good with no flickering or bad classification (in the most of the case).
+
+The same case visible at Picture 8 with more classes into the dataset produce a very variant and inaccurate results confirming the thesis that the small movement in the scene produce a little light variation in the faces that can lead a bad classification. 
 
 # Conclusion 
 
