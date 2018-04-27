@@ -277,23 +277,23 @@ Splitting the images in 12x12 blocks it get worse result than LinearSVM (without
 
 ## 4.2 Real time project
 
-Several tests have been done in order to test the performance of Local Binary Pattern approach with Linear SVM classifier in a real time scenario. 
+Several tests have been done in order to test the performance of Local Binary Pattern approach with Linear SVM classifier in a real-time scenario. 
 
-In particular, have been tested this situations: 
+In particular, have been tested these situations: 
 
-- With only two person stored in the dataset:
+- With only two persons stored in the dataset:
   - recognize one subject in normal light condition
   - recognize one subject in normal light condition but adding some occlusions (glasses, scarves, etc.)
   - the previous situations but changing the light condition 
-- With more than two person stored in the dataset:
+- With more than two persons stored in the dataset:
   - recognize one subject in normal light condition 
   - recognize one subject in normal light condition but adding some occlusions (glasses, scarves, etc.)
   - recognize two subjects in the same scene in normal light condition 
   - recognize two subjects in the same scene but adding some occlusions (glasses, scarves, etc.)
 
-In summary we can say that the LBP work very good in the both case with normal light condition. If the light is good as the training set photos, the algorithm recognize the faces even if the subject move his head a few degrees. 
+In summary we can say that the LBP work very good in the both case with normal light condition. If the light is good as the training set photos, the algorithm recognizes the faces even if the subject moves his head a few degrees. 
 
-Also adding some occlusion the algorithm seem work properly, in fact it is notable one thing: if the occlusion isn't very big the classifier recognize the face; if the occlusion is too intrusive the face detection algorithm doesn't find the face so it's not even launched the classifier. 
+Also adding some occlusions the algorithm seem work properly, in fact it is notable one thing: if the occlusion isn't very big the classifier recognizes the face; if the occlusion is too intrusive the face detection algorithm doesn't find the face so it's not even launched the classifier. 
 
 ![OcclusionTest](https://raw.githubusercontent.com/AsoStrife/Computer-Vision-Project/master/Docs/images/occlusion-example.png)
 
@@ -303,7 +303,7 @@ The classification becomes less accurate when other subjects are added into the 
 
 Adding more faces in the dataset leads a more complex training process and more complex classification. In this case is it possible to see the limits of LBP in the real time case.
 
-A person can't be perfectly still, so even a small movement that produce a little light variation can produce a significant changes at low level processing and obtain a not accurate classification.
+A person can't be perfectly still, so even a small movement that produce a little light variation can produce significant changes at low level processing and obtain a not accurate classification.
 
 But adding more subjects into the scene with a small dataset produce anyway a very good result.
 
@@ -311,7 +311,7 @@ But adding more subjects into the scene with a small dataset produce anyway a ve
 
 *Picture 8: occlusion test with 2 subjects into the scene* 
 
-As you can see at Picture 8, even adding an occlusion the classifier work very good with no flickering or bad classification (in the most of the case).
+As you can see at Picture 8, even adding an occlusion the classifier work very good with no flickering or bad classification (in most of the case).
 
 The same case visible at Picture 8 with more classes into the dataset produce a very variant and inaccurate results confirming the thesis that the small movement in the scene produce a little light variation in the faces that can lead a bad classification. 
 
