@@ -50,7 +50,7 @@ Non open source tools:
 ## 1.3 Face Recognition problem
 
 Over the last ten years or so, face recognition has become a popular area of research in computer vision and one of the most successful applications of image analysis and understanding. A facial recognition system is a technology capable of identifying or verifying a person from a digital image or a video frame from a video source. 
-For a human is very easy to perform the face recognition process but the same process is not easy for a computer. Computers have to deal with numerous interfering factors related to treatment of images such as: wide chromatic variations, different and different angles of view.
+For a human is very easy to perform the face recognition process but the same process is not easy for a computer. Computers have to deal with numerous interfering factors related to treatment of images such as: wide chromatic variations and different angles of view.
 Beyond this there are other factors that can be affect the face recognition process like: occlusion, hair style, glasses, facial expression etc. 
 
 There are multiples methods in which facial recognition systems work, but in general, they work by comparing selected facial features from given image with faces within a database.
