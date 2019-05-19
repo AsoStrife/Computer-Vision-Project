@@ -33,7 +33,7 @@ Most of the project has been developed using Python as programming language, ope
 
 - Python 2.7.14
 - OpenCV
-- Sklearn
+- Scikit-learn
 - Extended Yale B Faces Dataset
 - Pil
 
