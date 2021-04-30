@@ -37,7 +37,7 @@ Most of the project has been developed using Python as programming language, ope
 - Extended Yale B Faces Dataset
 - Pil
 
-[Extended Yale B Faces Dataset](http://vision.ucsd.edu/～leekc/ExtYaleDatabase/ExtYaleB.html ) includes 2414 frontal pictures of faces belonging to 38 different subjects. For each subject there are 64 photos taken in different light conditions.
+[Extended Yale B Faces Dataset](http://vision.ucsd.edu/~leekc/ExtYaleDatabase/ExtYaleB.html) includes 2414 frontal pictures of faces belonging to 38 different subjects. For each subject there are 64 photos taken in different light conditions.
 
 Non open source tools: 
 
